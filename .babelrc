@@ -1,0 +1,25 @@
+{
+    "presets": [
+        "@babel/preset-env", 
+        "@babel/preset-react", 
+        "@babel/preset-typescript"
+    ],
+    "plugins": [
+        "transform-vue-jsx", 
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-transform-runtime",
+        "@babel/proposal-class-properties",
+        "@babel/proposal-object-rest-spread",
+        [
+            "module-resolver",
+            {
+                "extensions": [".js", ".jsx", ".ts", ".tsx", ".vue"],
+                "root": ["./src"],
+                "alias": {
+                    // this must be synchronized with tsconfig.json's path configuration
+                    "@": "./src",
+                },
+            },
+        ]
+    ]
+ }

@@ -1,0 +1,16 @@
+{
+    "root": true,
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": ["error", 2]
+    },
+    "extends": [
+        "standard"
+    ],
+    "plugins": [
+        "html"
+    ]
+}
