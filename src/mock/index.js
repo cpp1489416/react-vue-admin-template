@@ -25,7 +25,6 @@ const getdata = function (option) { // 定义请求数据方法
   }
 }
 
-/*
 Mock.mock('api/login', /post|get/i, option => {
   console.log(option)
   const requestInfo = JSON.parse(option.body)
@@ -51,4 +50,3 @@ Mock.mock('api/user', /post|get/i, option => {
     }
   }
 })
-*/
