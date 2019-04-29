@@ -4,7 +4,7 @@ import VertexArrayObject from '../common/VertexArrayObject'
 import Texture from '../common/Texture'
 
 export default class extends Thing {
-  onCreateVbo() {
+  onCreateVbo () {
     this.vboPositions = new Buffer(this.gl, this.gl.ARRAY_BUFFER, this.gl.STATIC_DRAW)
     this.vboTextureCoords = new Buffer(this.gl, this.gl.ARRAY_BUFFER, this.gl.STATIC_DRAW)
 
@@ -32,7 +32,7 @@ export default class extends Thing {
     this.vboTextureCoords.setData(textureCoords)
   }
 
-  async onCreateVao(technique, requirement) {
+  async onCreateVao (technique, requirement) {
     this.vao = new VertexArrayObject(this.gl)
     this.vao.bind()
 
@@ -47,10 +47,9 @@ export default class extends Thing {
       this.gl.enableVertexAttribArray(textureCoordId)
       this.gl.vertexAttribPointer(textureCoordId, 2, this.gl.FLOAT, this.gl.FALSE, 0, this.gl.NULL)
     }
-
   }
 
-  onDraw() {
+  onDraw () {
     this.vao.bind()
     if (typeof this.texture !== 'undefined') {
       this.texture.bind()
@@ -58,9 +57,9 @@ export default class extends Thing {
     this.gl.drawArrays(this.gl.TRIANGLES, 0, 6)
   }
 
-  setCamera() {}
+  setCamera () {}
 
-  setTexture(texture) {
+  setTexture (texture) {
     this.texture = texture
   }
 }

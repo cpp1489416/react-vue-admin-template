@@ -18,10 +18,10 @@ export default {
   },
   computed: {
     autoWidth: {
-      get() {
+      get () {
         return this.value
       },
-      set(val) {
+      set (val) {
         this.$emit('input', val)
       }
     }

@@ -20,7 +20,7 @@ import Texture2DTechnique from '../../utils/gl/techniques/Texture2DTechnique'
 import Quad from '../../utils/gl/things/Quad'
 
 export default {
-  data() {
+  data () {
     return {
       canvas: null,
       camera: null,
@@ -31,23 +31,23 @@ export default {
     }
   },
   watch: {
-    filterText(val) {
+    filterText (val) {
     }
   },
-  mounted() {
+  mounted () {
     var canvas = this.$refs.tree
     this.canvas = canvas
-    this.$nextTick(function() {
+    this.$nextTick(function () {
       setInterval(this.timePass, 100)
     })
   },
 
   methods: {
-    filterNode(value, data) {
+    filterNode (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
-    repaint: async function() {
+    repaint: async function () {
       // 获取canvas元素
       // 获取绘制二维上下文
       var gl = this.canvas.getContext('webgl2')
@@ -60,7 +60,7 @@ export default {
       await this.paintGl()
     },
 
-    initGl: async function() {
+    initGl: async function () {
       this.camera = new Camera(this.gl)
       this.camera.lookAt(new THREE.Vector3(0, 0, -1), new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 1, 0))
       this.camera.perspective(-5, 5, 5, -5, -30, 500)
@@ -80,12 +80,12 @@ export default {
       // this.gl.enable(this.gl.DEPTH_CLAMP)
     },
 
-    paintGl: function() {
+    paintGl: function () {
       this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT)
       this.technique.drawThings()
     },
 
-    timePass: function() {
+    timePass: function () {
       return
       if (this.quad !== null) {
         this.quad.transform.rotation = new THREE.Vector3(this.now, this.now, this.now)
@@ -96,4 +96,3 @@ export default {
   }
 }
 </script>
-

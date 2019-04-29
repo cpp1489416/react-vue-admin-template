@@ -11,7 +11,7 @@ import { vec4, vec3 } from 'gl-matrix'
 import PlaneReflectedCamera from '../cameras/PlaneReflectedCamera'
 
 export default class ObjMeshMirror extends Thing {
-  constructor(gl, url) {
+  constructor (gl, url) {
     super(gl)
     this.url = url
     this.fileLoaded = false
@@ -21,23 +21,23 @@ export default class ObjMeshMirror extends Thing {
     this.reflectedCamera = null
   }
 
-  setCamera(camera) {
+  setCamera (camera) {
     this.camera = camera
     this.reflectedCamera = new PlaneReflectedCamera(camera)
     this.updatePlane()
     return this
   }
 
-  getMirrorCamera() {
+  getMirrorCamera () {
     return this.reflectedCamera
   }
 
-  setTexture(texture) {
+  setTexture (texture) {
     this.texture = texture
     return this
   }
 
-  updatePlane() {
+  updatePlane () {
     if (this.fileLoaded === false || this.camera === null) {
       // alert('not updated')
       return this
@@ -51,14 +51,14 @@ export default class ObjMeshMirror extends Thing {
     return this
   }
 
-  onTransformChanged(transform) {
+  onTransformChanged (transform) {
     this.updatePlane()
   }
 
-  onCreateVbo() {
+  onCreateVbo () {
   }
 
-  async onCreateVao(technique, requirement) {
+  async onCreateVao (technique, requirement) {
     this.requirement = requirement
     this.scanner = new ObjectMeshScanner(this.url)
     this.technique = technique
@@ -67,7 +67,7 @@ export default class ObjMeshMirror extends Thing {
     this.updatePlane()
   }
 
-  async createVaoAndVbo(technique, requirement) {
+  async createVaoAndVbo (technique, requirement) {
     this.technique = technique
     var scanner = this.scanner
     this.components = await scanner.getComponents()
@@ -100,7 +100,7 @@ export default class ObjMeshMirror extends Thing {
     // this.originPlane = vec4.fromValues(0, 0, -1, 0)
   }
 
-  onDraw() {
+  onDraw () {
     if (!this.fileLoaded || this.texture == null) {
       return
     }

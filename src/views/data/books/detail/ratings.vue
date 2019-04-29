@@ -52,78 +52,78 @@
 </template>
 
 <script>
-  import merge from 'webpack-merge'
-  import Pagination from '@/components/Pagination'
+import merge from 'webpack-merge'
+import Pagination from '@/components/Pagination'
 
-  export default {
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+export default {
+  filters: {
+    statusFilter (status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
-    },
-    data() {
-      return {
-        queryParams: {
-          location: null,
-          order_by: 'id',
-          page_number: 1,
-          page_size: 10,
-          user_name: '',
-        },
-        count: 0,
-        content: null,
-        listLoading: true,
-        username: '',
-        book: {
-          title: '',
-          image_url: ''
-        },
-        orderBys: [
-          'id', '-id', 'rating', '-rating', 'user__name', '-user__name', 'user__age', '-user__age'
-        ],
-      }
-    },
-    created() {
-      this.search()
-    },
-    methods: {
-      getList: async function (info) {
-        this.listLoading = true
-        if (info !== undefined) {
-          this.queryParams.page_number = info.page
-          this.queryParams.page_size = info.limit
-        } else {
-          this.queryParams.page_number = 1
-        }
-        if (this.queryParams.order_by === '') {
-          this.queryParams.order_by = 'id'
-        }
-        await this.ajax.get('/books/' + this.$route.params.id).then(response => {
-          this.book = response.info
-        })
-        await this.ajax.get('/books/' + this.$route.params.id + '/ratings', {
-          params: this.queryParams
-        }).then(response => {
-          this.count = response.info.count
-          this.content = response.info.content
-          this.listLoading = false
-        }, function () {
-        })
-      },
-      search() {
-        this.getList()
-      },
-      jumpToBookInfo() {
-        this.$router.push('/data/books/' + this.$route.params.id)
-      }
-    },
-    components: {
-      Pagination
+      return statusMap[status]
     }
+  },
+  data () {
+    return {
+      queryParams: {
+        location: null,
+        order_by: 'id',
+        page_number: 1,
+        page_size: 10,
+        user_name: ''
+      },
+      count: 0,
+      content: null,
+      listLoading: true,
+      username: '',
+      book: {
+        title: '',
+        image_url: ''
+      },
+      orderBys: [
+        'id', '-id', 'rating', '-rating', 'user__name', '-user__name', 'user__age', '-user__age'
+      ]
+    }
+  },
+  created () {
+    this.search()
+  },
+  methods: {
+    getList: async function (info) {
+      this.listLoading = true
+      if (info !== undefined) {
+        this.queryParams.page_number = info.page
+        this.queryParams.page_size = info.limit
+      } else {
+        this.queryParams.page_number = 1
+      }
+      if (this.queryParams.order_by === '') {
+        this.queryParams.order_by = 'id'
+      }
+      await this.ajax.get('/books/' + this.$route.params.id).then(response => {
+        this.book = response.info
+      })
+      await this.ajax.get('/books/' + this.$route.params.id + '/ratings', {
+        params: this.queryParams
+      }).then(response => {
+        this.count = response.info.count
+        this.content = response.info.content
+        this.listLoading = false
+      }, function () {
+      })
+    },
+    search () {
+      this.getList()
+    },
+    jumpToBookInfo () {
+      this.$router.push('/data/books/' + this.$route.params.id)
+    }
+  },
+  components: {
+    Pagination
   }
+}
 </script>

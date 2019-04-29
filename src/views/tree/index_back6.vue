@@ -36,18 +36,18 @@
 <script>
 import Camera from '../../utils/gl/common/Camera'
 import Cube from '../../utils/gl/things/Cube'
-import { vec3, mat4 } from 'gl-matrix'
+import { vec3, mat4, quat } from 'gl-matrix'
 import Anchor from '../../utils/gl/things/Anchor'
 import ObjMesh from '../../utils/gl/things/ObjMesh'
 import Quad from '../../utils/gl/things/Quad'
 import Scene from '../../utils/gl/Scene'
 import PlaneReflectedCamera from '../../utils/gl/cameras/PlaneReflectedCamera'
 import BasicCamera from '../../utils/gl/cameras/BasicCamera'
-import { quat } from 'gl-matrix'
+
 import ObjMeshMirror from '../../utils/gl/things/ObjMeshMirror'
 
 export default {
-  data() {
+  data () {
     return {
       canvas: null,
       scene: null,
@@ -72,17 +72,17 @@ export default {
     }
   },
   watch: {
-    filterText(val) {
+    filterText (val) {
     }
   },
-  mounted() {
+  mounted () {
     var canvas = this.$refs.tree
     this.canvas = canvas
     this.repaint()
   },
 
   methods: {
-    repaint: function() {
+    repaint: function () {
       var gl = this.canvas.getContext('webgl2')
       this.gl = gl
       if (!gl) {
@@ -92,7 +92,7 @@ export default {
       this.paintGl()
     },
 
-    initGl: async function() {
+    initGl: async function () {
       this.camera = new BasicCamera()
       this.camera.lookAt([80, 30, -80], [0, 30, 0], [0, 1, 0])
       this.camera.perspective(3.14 / 2 / 2, 0.1, 10000)
@@ -135,36 +135,36 @@ export default {
       setInterval(this.timePass, 100)
     },
 
-    paintGl: function() {
+    paintGl: function () {
       this.scene.draw()
     },
 
-    timePass: function() {
+    timePass: function () {
       if (this.mesh !== null && this.rotating) {
         this.now += 5
         this.mesh.transform.setRotation(quat.fromEuler(quat.create(), 0, this.now, 0))
-     }
+      }
       this.paintGl()
     },
-    walk() {
+    walk () {
       this.camera.walk(Number(this.walkDistance))
     },
-    fly() {
+    fly () {
       this.camera.fly(Number(this.flyDistance))
     },
-    strafe() {
+    strafe () {
       this.camera.strafe(Number(this.strafeDistance))
     },
-    pitch() {
+    pitch () {
       this.camera.pitch(Number(this.pitchDistance))
     },
-    yall() {
+    yall () {
       this.camera.yall(Number(this.yallDistance))
     },
-    roll() {
+    roll () {
       this.camera.roll(Number(this.rollDistance))
     },
-    reflect() {
+    reflect () {
       if (this.reflectedCamera.plane == null) {
         // alert(this.mirror.getMirrorCamera().getPlane())
         this.reflectedCamera.changePlane(this.mirror.getMirrorCamera().getPlane())
@@ -172,11 +172,10 @@ export default {
         this.reflectedCamera.changePlane(null)
       }
     },
-    rotate() {
+    rotate () {
       // this.mesh.transform.setRotation(quat.setAxisAngle(quat.create(), [this.rotateX, this.rotateY, this.rotateZ], this.rotateW))
       this.mesh.transform.setRotation(quat.fromEuler(quat.create(), this.rotateX, this.rotateY, this.rotateZ))
     }
   }
 }
 </script>
-

@@ -21,7 +21,7 @@ const user = {
 
   actions: {
     // 登录
-    Login: function({ commit }, user) {
+    Login: function ({ commit }, user) {
       const username = user.username.trim()
       return new Promise((resolve, reject) => {
         ajax({
@@ -35,7 +35,7 @@ const user = {
           if (response.code === '0') {
             commit('SET_USERNAME', username)
             // the following code should be corrected, this is not good, why 'this' means store?
-            this.dispatch('GetUser').then(function() {
+            this.dispatch('GetUser').then(function () {
               resolve(response)
             })
           } else {
@@ -50,7 +50,7 @@ const user = {
     },
 
     // 获取用户信息
-    GetUser({ commit, state }) {
+    GetUser ({ commit, state }) {
       return new Promise((resolve, reject) => {
         ajax({
           url: '/user',
@@ -68,7 +68,7 @@ const user = {
     },
 
     // 登出
-    LogOut({ commit, state }) {
+    LogOut ({ commit, state }) {
       return new Promise((resolve, reject) => {
         ajax({
           url: '/logout'
@@ -82,7 +82,7 @@ const user = {
     },
 
     // 前端 登出
-    FedLogOut({ commit }) {
+    FedLogOut ({ commit }) {
       return new Promise(resolve => {
         commit('SET_USERNAME', '')
         commit('SET_USER_INFO', null)

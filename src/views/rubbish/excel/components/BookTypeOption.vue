@@ -19,17 +19,17 @@ export default {
       default: 'xlsx'
     }
   },
-  data() {
+  data () {
     return {
       options: ['xlsx', 'csv', 'txt']
     }
   },
   computed: {
     bookType: {
-      get() {
+      get () {
         return this.value
       },
-      set(val) {
+      set (val) {
         this.$emit('input', val)
       }
     }

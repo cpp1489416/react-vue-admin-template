@@ -43,7 +43,7 @@ export default {
       'username', 'user'
     ])
   },
-  data() {
+  data () {
     return {
       bookInfo: {
         title: '',
@@ -51,13 +51,13 @@ export default {
         author: '',
         publisher: '',
         published_year: '0000',
-        image_url: '',
+        image_url: ''
       },
       addLoading: false
     }
   },
   methods: {
-    async add() {
+    async add () {
       this.modifyLoading = true
       await this.ajax.post(
         '/books',
@@ -66,17 +66,17 @@ export default {
         this.$notify({
           title: 'success',
           message: 'added',
-          type: 'success',
+          type: 'success'
         })
         this.$router.push('/data/books/' + response.info.id)
       })
       this.modifyLoading = false
     },
-    back() {
+    back () {
       this.$router.back()
     }
   },
-  created() {
+  created () {
   }
 }
 </script>
@@ -86,4 +86,3 @@ export default {
   text-align: center;
 }
 </style>
-

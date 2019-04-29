@@ -14,36 +14,36 @@ export default class BasicCamera extends Camera {
     Ortho: 1
   }
 
-  constructor() {
+  constructor () {
     super()
     this.transformType = BasicCamera.TransformType.LandObject
   }
 
-  addEventListener(e) {
+  addEventListener (e) {
     this.eventListeners.push(e)
   }
 
-  getProjectionMatrix() {
+  getProjectionMatrix () {
     return this.projectionMatrix
   }
 
-  getNoneAspectProjectionMatrix() {
+  getNoneAspectProjectionMatrix () {
     var projection = this.getProjectionMatrix()
     projection[0] = projection[5]
     return projection
   }
 
-  getViewMatrix() {
+  getViewMatrix () {
     return this.viewMatrix
   }
 
-  getSkyboxViewMatrix() {
+  getSkyboxViewMatrix () {
     var view = mat4.clone(this.getViewMatrix())
     view[12] = view[13] = view[14] = 0
     return view
   }
 
-  lookAt(eye, center, up) {
+  lookAt (eye, center, up) {
     this.position = vec3.clone(eye)
     var target = vec3.clone(center)
 
@@ -63,13 +63,13 @@ export default class BasicCamera extends Camera {
   }
 
   // just from away look
-  lookAway(vec) {
+  lookAway (vec) {
     var viewMatrix = mat4.create()
     mat4.translate(viewMatrix, viewMatrix, vec)
     this.viewMatrix = viewMatrix
   }
 
-  updateViewMatrix() {
+  updateViewMatrix () {
     var x = -vec3.dot(this.xVector, this.position)
     var y = -vec3.dot(this.yVector, this.position)
     var z = -vec3.dot(this.zVector, this.position)
@@ -89,7 +89,7 @@ export default class BasicCamera extends Camera {
     this.notifyViewMatrixChanged()
   }
 
-  perspective(fovy, near, far) {
+  perspective (fovy, near, far) {
     this.fovy = fovy
     this.near = near
     this.far = far
@@ -97,19 +97,19 @@ export default class BasicCamera extends Camera {
     this.updateProjectionMatrix()
   }
 
-  ortho(left, right, bottom, top, near, far) {
+  ortho (left, right, bottom, top, near, far) {
     this.projectionMatrix = mat4.create()
     mat4.ortho(this.projectionMatrix, left, right, bottom, top, near, far)
 
     this.notifyProjectionMatrixChanged()
   }
 
-  setAspect(aspect) {
+  setAspect (aspect) {
     this.aspect = aspect
     this.updateProjectionMatrix()
   }
 
-  updateProjectionMatrix() {
+  updateProjectionMatrix () {
     var projection = mat4.create()
     var a = Math.tan(this.fovy / 2)
     var b = this.aspect
@@ -127,7 +127,7 @@ export default class BasicCamera extends Camera {
     this.notifyProjectionMatrixChanged()
   }
 
-  walk(distance) {
+  walk (distance) {
     if (this.transformType === BasicCamera.TransformType.LandObject) {
       vec3.add(this.position, this.position, vec3.scale(vec3.create(), vec3.fromValues(this.zVector[0], 0, this.zVector[2]), distance))
     } else {
@@ -136,7 +136,7 @@ export default class BasicCamera extends Camera {
     this.updateViewMatrix()
   }
 
-  fly(distance) {
+  fly (distance) {
     if (this.transformType === BasicCamera.TransformType.LandObject) {
       this.position[1] += distance
     } else {
@@ -145,7 +145,7 @@ export default class BasicCamera extends Camera {
     this.updateViewMatrix()
   }
 
-  strafe(distance) {
+  strafe (distance) {
     if (this.transformType === BasicCamera.TransformType.LandObject) {
       vec3.add(this.position, this.position, vec3.scale(vec3.create(), vec3.fromValues(this.xVector[0], 0, this.xVector[2]), distance))
     } else {
@@ -154,7 +154,7 @@ export default class BasicCamera extends Camera {
     this.updateViewMatrix()
   }
 
-  pitch(distance) {
+  pitch (distance) {
     var rm = mat4.create()
       mat4.rotate(rm, rm, distance, this.xVector)
     vec3.transformMat4(this.yVector, this.yVector, rm)
@@ -162,7 +162,7 @@ export default class BasicCamera extends Camera {
     this.updateViewMatrix()
   }
 
-  yall(distance) {
+  yall (distance) {
     var rm = mat4.create()
     if (this.transformType === BasicCamera.TransformType.LandObject) {
       mat4.rotate(rm, rm, distance, [0, 1, 0])
@@ -175,7 +175,7 @@ export default class BasicCamera extends Camera {
     this.updateViewMatrix()
   }
 
-  roll(distance) {
+  roll (distance) {
     var rm = mat4.create()
     if (this.transformType === BasicCamera.TransformType.LandObject) {
       return
@@ -187,7 +187,7 @@ export default class BasicCamera extends Camera {
     this.updateViewMatrix()
   }
 
-  getPosition() {
+  getPosition () {
     return this.position
   }
 }

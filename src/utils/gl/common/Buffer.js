@@ -1,31 +1,31 @@
 export default class Buffer {
-  constructor(gl, type, usagePattern) {
+  constructor (gl, type, usagePattern) {
     this.gl = gl
     this.created = false
     this.type = type
     this.usagePattern = usagePattern
   }
 
-  create() {
+  create () {
     if (!this.created) {
       this.created = true
       this.buffer = this.gl.createBuffer()
     }
   }
 
-  setData(data) {
+  setData (data) {
     this.bind()
     this.gl.bufferData(this.type, data, this.usagePattern)
   }
 
-  bind() {
+  bind () {
     if (!this.created) {
       this.create()
     }
     this.gl.bindBuffer(this.type, this.buffer)
   }
 
-  unbind() {
+  unbind () {
     this.gl.bindBuffer(this.type, null)
   }
 }

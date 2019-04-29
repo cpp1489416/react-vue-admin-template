@@ -10,10 +10,10 @@ import cube_map_pz_dir from '@/assets/textures/CubeMapPZ.png'
 import cube_map_nz_dir from '@/assets/textures/CubeMapNZ.png'
 
 export default class extends Thing {
-  onCreateVbo() {
+  onCreateVbo () {
   }
 
-  onCreateVao(technique, requirement) {
+  onCreateVao (technique, requirement) {
     var texturesDir = [cube_map_px_dir, cube_map_nx_dir, cube_map_py_dir, cube_map_ny_dir, cube_map_pz_dir, cube_map_nz_dir]
     this.textures = []
     for (var i = 0; i < 6; i++) {
@@ -108,7 +108,7 @@ export default class extends Thing {
     }
   }
 
-  onDraw() {
+  onDraw () {
     for (let i = 0; i < 6; i++) {
       this.vaos[i].bind()
       this.textures[i].bind()

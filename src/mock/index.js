@@ -49,4 +49,4 @@ Mock.mock('api/user', /post|get/i, option => {
       avatar_url: '/static/log'
     }
   }
-}) 
+})

@@ -22,17 +22,17 @@ export default {
   directives: {
     clipboard
   },
-  data() {
+  data () {
     return {
       activeName: 'directly',
       inputData: 'https://github.com/PanJiaChen/vue-element-admin'
     }
   },
   methods: {
-    handleCopy(text, event) {
+    handleCopy (text, event) {
       clip(text, event)
     },
-    clipboardSuccess() {
+    clipboardSuccess () {
       this.$message({
         message: 'Copy successfully',
         type: 'success',
@@ -42,4 +42,3 @@ export default {
   }
 }
 </script>
-

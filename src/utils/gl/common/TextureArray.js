@@ -2,11 +2,11 @@
 import Texture from './Texture'
 
 export default class {
-  constructor(gl) {
+  constructor (gl) {
     this.gl = gl
   }
 
-  setWrap(setting) {
+  setWrap (setting) {
     for (var i in this.textures) {
       this.textures[i].bind()
       this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_R, setting)
@@ -16,7 +16,7 @@ export default class {
     return this
   }
 
-  updateToUniform() {
+  updateToUniform () {
     /*
     Never mind, I think I found the solution. My code looks as follows:
 
@@ -45,7 +45,7 @@ gl.uniform1iv(sampler, samplerArray);
      */
   }
 
-  getSamplerArray() {
+  getSamplerArray () {
     var samplerArray = new Int32Array(this.textures.length)
     var len = this.textures.length
     while (len--) {
@@ -54,14 +54,14 @@ gl.uniform1iv(sampler, samplerArray);
     return samplerArray
   }
 
-  bind() {
+  bind () {
     for (var i = 0; i < this.textures.length; i++) {
       this.gl.activeTexture(this.gl.TEXTURE0 + i)
       this.textures[i].bind()
     }
   }
 
-  fromImages(urls) {
+  fromImages (urls) {
     this.textures = []
     for (var i = 0; i < urls.length; ++i) {
       this.textures.push(new Texture(this.gl).setBound(i).fromImage(urls[i]))

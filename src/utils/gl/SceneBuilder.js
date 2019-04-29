@@ -8,17 +8,17 @@ import PlaneReflectedCamera from './cameras/PlaneReflectedCamera'
 import { quat, vec3 } from 'gl-matrix'
 
 export default class SceneBuilder {
-  setGl(gl) {
+  setGl (gl) {
     this.gl = gl
     return this
   }
 
-  setConfig(config) {
+  setConfig (config) {
     this.config = config
     return this
   }
 
-  setSize(width, height) {
+  setSize (width, height) {
     this.size = {
       width: width,
       height: height
@@ -26,22 +26,22 @@ export default class SceneBuilder {
     return this
   }
 
-  getCamera() {
+  getCamera () {
     return this.camera
   }
 
-  getModel(name) {
+  getModel (name) {
     if (!this.modelsMap.has(name)) {
       console.error('no such model: ' + name)
     }
     return this.modelsMap.get(name)
   }
 
-  getScene() {
+  getScene () {
     return this.scene
   }
 
-  build() {
+  build () {
     this.models = new Map()
     for (var name in this.config) {
       if (!this.config.hasOwnProperty(name)) {
@@ -66,7 +66,7 @@ export default class SceneBuilder {
     return this
   }
 
-  buildCamera(config) {
+  buildCamera (config) {
     if (config.projectionType !== 'perspective') {
       alert('not support camera version: ' + config.type)
     }
@@ -82,7 +82,7 @@ export default class SceneBuilder {
     return camera
   }
 
-  buildModels(config) {
+  buildModels (config) {
     var modelsMap = new Map()
     config.forEach(modelConfig => {
       let model
@@ -113,7 +113,7 @@ export default class SceneBuilder {
     return modelsMap
   }
 
-  setConfigTransform(config, transform) {
+  setConfigTransform (config, transform) {
     if (typeof config === 'undefined') {
       return transform
     }
@@ -129,7 +129,7 @@ export default class SceneBuilder {
     return transform
   }
 
-  buildEnvironment(config) {
+  buildEnvironment (config) {
     if (typeof config.mirrorEnabled === 'undefined') {
       this.config.mirrorEnabled = false
     }
@@ -151,7 +151,7 @@ export default class SceneBuilder {
     return config
   }
 
-  buildScene() {
+  buildScene () {
     var scene = new Scene(this.gl)
       .setSize(this.size.width, this.size.height)
       .setDirectionLight(this.environment.directionLight)

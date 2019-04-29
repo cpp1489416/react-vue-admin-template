@@ -55,7 +55,7 @@ const viewName = 'i18nView'
 
 export default {
   name: 'I18n',
-  data() {
+  data () {
     return {
       date: '',
       tableData: [{
@@ -84,21 +84,21 @@ export default {
   },
   computed: {
     lang: {
-      get() {
+      get () {
         return this.$store.state.app.language
       },
-      set(lang) {
+      set (lang) {
         this.$i18n.locale = lang
         this.$store.dispatch('setLanguage', lang)
       }
     }
   },
   watch: {
-    lang() {
+    lang () {
       this.setOptions()
     }
   },
-  created() {
+  created () {
     if (!this.$i18n.getLocaleMessage('en')[viewName]) {
       this.$i18n.mergeLocaleMessage('en', local.en)
       this.$i18n.mergeLocaleMessage('zh', local.zh)
@@ -107,7 +107,7 @@ export default {
     this.setOptions() // set default select options
   },
   methods: {
-    setOptions() {
+    setOptions () {
       this.options = [
         {
           value: '1',

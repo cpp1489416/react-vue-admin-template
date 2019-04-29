@@ -1,11 +1,11 @@
 
 export default class {
-  constructor(gl) {
+  constructor (gl) {
     this.gl = gl
     this.created = false
   }
 
-  create() {
+  create () {
     if (!this.created) {
       this.created = true
       this.vao = this.gl.createVertexArray()
@@ -13,7 +13,7 @@ export default class {
     return this
   }
 
-  bind() {
+  bind () {
     if (!this.created) {
       this.create()
     }
@@ -21,16 +21,15 @@ export default class {
     return this
   }
 
-  unbind() {
+  unbind () {
     this.gl.bindVertexArray(null)
     return this
   }
 
-  destroy() {
+  destroy () {
     if (this.created) {
       this.created = false
       this.gl.deleteVertexArray(this.vao)
     }
   }
 }
-

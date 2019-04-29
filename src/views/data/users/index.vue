@@ -62,77 +62,77 @@
 </template>
 
 <script>
-  import merge from 'webpack-merge'
-  import Pagination from '@/components/Pagination'
+import merge from 'webpack-merge'
+import Pagination from '@/components/Pagination'
 
-  export default {
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+export default {
+  filters: {
+    statusFilter (status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
-    },
-    data() {
-      return {
-        queryParams: {
-          name : null,
-          location: null,
-          order_by: 'id',
-          page_number: 1,
-          page_size: 10,
-        },
-        count: 0,
-        content: null,
-        listLoading: true,
-        orderBys: [
-          'id', '-id', 'age', '-age'
-        ]
-      }
-    },
-    created() {
-      this.reloadPage()
-    },
-    methods: {
-      getList: function (info) {
-        this.listLoading = true
-        if (info !== undefined) {
-          this.queryParams.page_number = info.page
-          this.queryParams.page_size = info.limit
-        } else {
-          this.queryParams.page_number = 1
-        }
-        if (this.queryParams.order_by === '') {
-          this.queryParams.order_by = 'id'
-        }
-        this.ajax.get('/users', {
-          params: this.queryParams
-        }).then(response => {
-          this.count = response.info.count
-          this.content = response.info.content
-          this.listLoading = false
-        }, function () {
-        })
-      },
-      reloadPage: function () {
-        this.getList()
-      },
-      jumpToRecommendations(user_id) {
-        this.$router.push({
-          path: '/data/users/' + user_id + '/recommendations'
-        })
-      },
-      jumpToProfile(user_id) {
-        this.$router.push({
-          path: '/data/users/' + user_id + '/profile'
-        })
-      }
-    },
-    components: {
-      Pagination
+      return statusMap[status]
     }
+  },
+  data () {
+    return {
+      queryParams: {
+        name: null,
+        location: null,
+        order_by: 'id',
+        page_number: 1,
+        page_size: 10
+      },
+      count: 0,
+      content: null,
+      listLoading: true,
+      orderBys: [
+        'id', '-id', 'age', '-age'
+      ]
+    }
+  },
+  created () {
+    this.reloadPage()
+  },
+  methods: {
+    getList: function (info) {
+      this.listLoading = true
+      if (info !== undefined) {
+        this.queryParams.page_number = info.page
+        this.queryParams.page_size = info.limit
+      } else {
+        this.queryParams.page_number = 1
+      }
+      if (this.queryParams.order_by === '') {
+        this.queryParams.order_by = 'id'
+      }
+      this.ajax.get('/users', {
+        params: this.queryParams
+      }).then(response => {
+        this.count = response.info.count
+        this.content = response.info.content
+        this.listLoading = false
+      }, function () {
+      })
+    },
+    reloadPage: function () {
+      this.getList()
+    },
+    jumpToRecommendations (user_id) {
+      this.$router.push({
+        path: '/data/users/' + user_id + '/recommendations'
+      })
+    },
+    jumpToProfile (user_id) {
+      this.$router.push({
+        path: '/data/users/' + user_id + '/profile'
+      })
+    }
+  },
+  components: {
+    Pagination
   }
+}
 </script>

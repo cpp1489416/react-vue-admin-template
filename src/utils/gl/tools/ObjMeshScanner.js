@@ -2,12 +2,12 @@ import Scanner from './Scanner'
 import axios from 'axios'
 
 export default class ObjMeshScanner {
-  constructor(url) {
+  constructor (url) {
     this.url = url
     this.gened = false
   }
 
-  async genBuffers() {
+  async genBuffers () {
     var res = await axios.get(this.url)
     var scanner = new Scanner(res.data)
     this.positions = []
@@ -35,7 +35,7 @@ export default class ObjMeshScanner {
           var ti = numbers[1]
           var ni = numbers[2]
           this.finalPositions.push(
-            this.positions[(pi - 1) * 3], this.positions[(pi - 1) * 3 + 1], this.positions[(pi - 1) * 3 + 2],
+            this.positions[(pi - 1) * 3], this.positions[(pi - 1) * 3 + 1], this.positions[(pi - 1) * 3 + 2]
           )
           this.finalTextureCoords.push(
             this.textureCoords[(ti - 1) * 2], this.textureCoords[(ti - 1) * 2 + 1], 0
@@ -74,7 +74,7 @@ export default class ObjMeshScanner {
     this.gened = true
   }
 
-  addToPath(url, filename) {
+  addToPath (url, filename) {
     var pos = url.length - 1
     while (pos > 0) {
       if (url.charAt(pos) === '/') {
@@ -86,7 +86,7 @@ export default class ObjMeshScanner {
     return url.substr(0, pos) + '/' + filename
   }
 
-  async genFromMtl(filename) {
+  async genFromMtl (filename) {
     var res = await axios.get(this.addToPath(this.url, filename))
     var scanner = new Scanner(res.data)
 
@@ -115,21 +115,21 @@ export default class ObjMeshScanner {
     }
   }
 
-  async getComponents() {
+  async getComponents () {
     if (!this.gened) {
       await this.genBuffers()
     }
     return this.components
   }
 
-  async getOffsets() {
+  async getOffsets () {
     if (!this.gened) {
       await this.genBuffers()
     }
     return this.matrialsOffset
   }
 
-  async getPositions() {
+  async getPositions () {
     if (!this.gened) {
       await this.genBuffers()
     }
@@ -137,7 +137,7 @@ export default class ObjMeshScanner {
     return Float32Array.from(this.finalPositions)
   }
 
-  async getColors() {
+  async getColors () {
     if (!this.gened) {
       await this.genBuffers()
     }
@@ -145,7 +145,7 @@ export default class ObjMeshScanner {
     return Float32Array.from(this.finalColors)
   }
 
-  async getTextureCoords() {
+  async getTextureCoords () {
     if (!this.gened) {
       await this.genBuffers()
     }
@@ -153,14 +153,14 @@ export default class ObjMeshScanner {
     return Float32Array.from(this.finalTextureCoords)
   }
 
-  async getNormals() {
+  async getNormals () {
     if (!this.gened) {
       await this.genBuffers()
     }
     return Float32Array.from(this.finalNormals)
   }
 
-  async getCount() {
+  async getCount () {
     if (!this.gened) {
       await this.genBuffers()
     }

@@ -18,7 +18,7 @@ import tabPane from './components/tabPane'
 export default {
   name: 'Tab',
   components: { tabPane },
-  data() {
+  data () {
     return {
       tabMapOptions: [
         { label: 'China', key: 'CN' },
@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    showCreatedTimes() {
+    showCreatedTimes () {
       this.createdTimes = this.createdTimes + 1
     }
   }

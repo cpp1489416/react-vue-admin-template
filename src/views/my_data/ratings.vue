@@ -52,90 +52,90 @@
 </template>
 
 <script>
-  import merge from 'webpack-merge'
-  import Pagination from '@/components/Pagination'
-  import {mapGetters} from 'vuex'
+import merge from 'webpack-merge'
+import Pagination from '@/components/Pagination'
+import {mapGetters} from 'vuex'
 
-  export default {
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+export default {
+  filters: {
+    statusFilter (status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
-    },
-    data() {
-      return {
-        queryParams: {
-          name: null,
-          location: null,
-          order_by: 'id',
-          page_number: 1,
-          page_size: 10,
-        },
-        count: 0,
-        content: null,
-        listLoading: true,
-        username: '',
-        orderBys: [
-          'id', '-id', 'rating', '-rating', 'title', '-title', 'isbn', '-isbn'
-        ],
-        userId: '',
-      }
-    },
-    computed: {
-      ...mapGetters([
-        'user'
-      ])
-    },
-    created() {
-      this.getList()
-    },
-    methods: {
-      getList: async function (info) {
-        this.listLoading = true
-        if (info !== undefined) {
-          this.queryParams.page_number = info.page
-          this.queryParams.page_size = info.limit
-        } else {
-          this.queryParams.page_number = 1
-        }
-        if (this.queryParams.order_by === '') {
-          this.queryParams.order_by = 'id'
-        }
-        await this.ajax.get('/ratings', {
-          params: this.queryParams
-        }).then(response => {
-          this.count = response.info.count
-          this.content = response.info.content
-          for (var i in this.content) {
-            this.content[i].ratingSubmitting = false
-          }
-          this.listLoading = false
-        }, function () {
-        })
-      },
-      async changeRating(index) {
-        const rating = this.content[index]
-        rating.ratingSubmitting = true
-        this.$set(this.content, index, rating)
-        await this.ajax.put('/books/' + rating.book_id + '/rating', {
-          rating: rating.rating
-        }).then(() => {
-          this.$notify({
-            message: 'rating changed',
-            type: 'success'
-          })
-        })
-        rating.ratingSubmitting = false
-        this.$set(this.content, index, rating)
-      },
-    },
-    components: {
-      Pagination
+      return statusMap[status]
     }
+  },
+  data () {
+    return {
+      queryParams: {
+        name: null,
+        location: null,
+        order_by: 'id',
+        page_number: 1,
+        page_size: 10
+      },
+      count: 0,
+      content: null,
+      listLoading: true,
+      username: '',
+      orderBys: [
+        'id', '-id', 'rating', '-rating', 'title', '-title', 'isbn', '-isbn'
+      ],
+      userId: ''
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'user'
+    ])
+  },
+  created () {
+    this.getList()
+  },
+  methods: {
+    getList: async function (info) {
+      this.listLoading = true
+      if (info !== undefined) {
+        this.queryParams.page_number = info.page
+        this.queryParams.page_size = info.limit
+      } else {
+        this.queryParams.page_number = 1
+      }
+      if (this.queryParams.order_by === '') {
+        this.queryParams.order_by = 'id'
+      }
+      await this.ajax.get('/ratings', {
+        params: this.queryParams
+      }).then(response => {
+        this.count = response.info.count
+        this.content = response.info.content
+        for (var i in this.content) {
+          this.content[i].ratingSubmitting = false
+        }
+        this.listLoading = false
+      }, function () {
+      })
+    },
+    async changeRating (index) {
+      const rating = this.content[index]
+      rating.ratingSubmitting = true
+      this.$set(this.content, index, rating)
+      await this.ajax.put('/books/' + rating.book_id + '/rating', {
+        rating: rating.rating
+      }).then(() => {
+        this.$notify({
+          message: 'rating changed',
+          type: 'success'
+        })
+      })
+      rating.ratingSubmitting = false
+      this.$set(this.content, index, rating)
+    }
+  },
+  components: {
+    Pagination
   }
+}
 </script>

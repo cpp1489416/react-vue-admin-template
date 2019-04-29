@@ -57,80 +57,80 @@
 </template>
 
 <script>
-  import merge from 'webpack-merge'
-  import Pagination from '@/components/Pagination'
-  import mapGetters from 'vuex'
+import merge from 'webpack-merge'
+import Pagination from '@/components/Pagination'
+import mapGetters from 'vuex'
 
-  export default {
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
+export default {
+  filters: {
+    statusFilter (status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
       }
-    },
-    data() {
-      return {
-        queryParams: {
-          name: null,
-          location: null,
-          order_by: 'id',
-          page_number: 1,
-          page_size: 10,
-        },
-        count: 0,
-        content: null,
-        listLoading: true,
-        username: '',
-        orderBys: [
-          'id', '-id', 'rating', '-rating', 'title', '-title', 'isbn', '-isbn'
-        ],
-        userId: '',
-      }
-    },
-    created() {
-      this.userId = this.$route.params.id
-      this.reloadPage()
-    },
-    methods: {
-      getList: async function (info) {
-        this.listLoading = true
-        if (info !== undefined) {
-          this.queryParams.page_number = info.page
-          this.queryParams.page_size = info.limit
-        } else {
-          this.queryParams.page_number = 1
-        }
-        if (this.queryParams.order_by === '') {
-          this.queryParams.order_by = 'id'
-        }
-        await this.ajax.get('/users/' + this.$route.params.id).then(response => {
-          this.username = response.info.name
-        })
-        await this.ajax.get('/users/' + this.$route.params.id + '/ratings', {
-          params: this.queryParams
-        }).then(response => {
-          this.count = response.info.count
-          this.content = response.info.content
-          this.listLoading = false
-        }, function () {
-        })
-      },
-      reloadPage: function () {
-        if (this.userId === '') {
-          this.userId = '1'
-        }
-        if (this.$route.params.id !== this.userId) {
-          this.$router.push('/example/rates_of_user/' + this.userId)
-        }
-        this.getList()
-      }
-    },
-    components: {
-      Pagination
+      return statusMap[status]
     }
+  },
+  data () {
+    return {
+      queryParams: {
+        name: null,
+        location: null,
+        order_by: 'id',
+        page_number: 1,
+        page_size: 10
+      },
+      count: 0,
+      content: null,
+      listLoading: true,
+      username: '',
+      orderBys: [
+        'id', '-id', 'rating', '-rating', 'title', '-title', 'isbn', '-isbn'
+      ],
+      userId: ''
+    }
+  },
+  created () {
+    this.userId = this.$route.params.id
+    this.reloadPage()
+  },
+  methods: {
+    getList: async function (info) {
+      this.listLoading = true
+      if (info !== undefined) {
+        this.queryParams.page_number = info.page
+        this.queryParams.page_size = info.limit
+      } else {
+        this.queryParams.page_number = 1
+      }
+      if (this.queryParams.order_by === '') {
+        this.queryParams.order_by = 'id'
+      }
+      await this.ajax.get('/users/' + this.$route.params.id).then(response => {
+        this.username = response.info.name
+      })
+      await this.ajax.get('/users/' + this.$route.params.id + '/ratings', {
+        params: this.queryParams
+      }).then(response => {
+        this.count = response.info.count
+        this.content = response.info.content
+        this.listLoading = false
+      }, function () {
+      })
+    },
+    reloadPage: function () {
+      if (this.userId === '') {
+        this.userId = '1'
+      }
+      if (this.$route.params.id !== this.userId) {
+        this.$router.push('/example/rates_of_user/' + this.userId)
+      }
+      this.getList()
+    }
+  },
+  components: {
+    Pagination
   }
+}
 </script>

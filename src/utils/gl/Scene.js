@@ -13,7 +13,7 @@ import PlaneReflectedCamera from './cameras/PlaneReflectedCamera'
 import ObjMeshMirror from './things/ObjMeshMirror'
 
 export default class {
-  constructor(gl) {
+  constructor (gl) {
     this.gl = gl
     this.skyboxTechnique = new SkyboxTechnique(gl)
     this.mainTechnique = new MainTechnique(gl)
@@ -25,7 +25,7 @@ export default class {
     this.initGl()
   }
 
-  addComponent(component) {
+  addComponent (component) {
     if (component instanceof Camera) {
       this.camera = component
       this.skyboxTechnique.addComponent(component)
@@ -45,7 +45,7 @@ export default class {
     return this
   }
 
-  initMirror() {
+  initMirror () {
     for (var i in this.rttTechnique.getThings()) {
       var thing = this.rttTechnique.getThings()[i]
       thing.setCamera(this.camera)
@@ -56,29 +56,29 @@ export default class {
     this.mirrorInited = true
   }
 
-  setSize(width, height) {
+  setSize (width, height) {
     this.width = width
     this.height = height
     this.setMirrorEnabled(this.mirrorEnabled)
     return this
   }
 
-  setMirrorEnabled(enabled) {
+  setMirrorEnabled (enabled) {
     this.mirrorEnabled = enabled
     return this
   }
 
-  setAmbientLightIntensity(intensity) {
+  setAmbientLightIntensity (intensity) {
     this.mainTechnique.setAmbientLightIntensity(intensity)
     return this
   }
 
-  setDirectionLight(light) {
+  setDirectionLight (light) {
     this.mainTechnique.setDirectionLight(light)
     return this
   }
 
-  drawInFramebuffer() {
+  drawInFramebuffer () {
     this.gl.viewport(0, 0, this.width, this.height)
     this.gl.clear(this.gl.DEPTH_BUFFER_BIT)
     this.skyboxTechnique.drawThings()
@@ -86,13 +86,13 @@ export default class {
     this.basicTechnique.drawThings()
   }
 
-  drawSupports() {
+  drawSupports () {
     this.gl.viewport(0, 0, 60, 60)
     this.gl.clear(this.gl.DEPTH_BUFFER_BIT)
     this.supportTechnique.drawThings()
   }
 
-  draw() {
+  draw () {
     if (this.camera == null) {
       return
     }
@@ -135,7 +135,7 @@ export default class {
     }
   }
 
-  initGl() {
+  initGl () {
     // enviroment
     this.gl.enable(this.gl.DEPTH_TEST)
     this.gl.depthFunc(this.gl.LESS)

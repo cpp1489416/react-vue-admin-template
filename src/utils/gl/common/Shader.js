@@ -1,11 +1,11 @@
 
 export default class Shader {
-  constructor(gl, shaderType) {
+  constructor (gl, shaderType) {
     this.gl = gl
     this.shaderType = shaderType
   }
 
-  compile(shaderSource) {
+  compile (shaderSource) {
     this.id = this.gl.createShader(this.shaderType)
     this.gl.shaderSource(this.id, shaderSource)
     this.gl.compileShader(this.id)
@@ -17,7 +17,7 @@ export default class Shader {
     return this
   }
 
-  getId() {
+  getId () {
     return this.id
   }
 }

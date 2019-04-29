@@ -1,11 +1,11 @@
 
 export default class Scanner {
-  constructor(src) {
+  constructor (src) {
     this.src = src
     this.location = 0
   }
 
-  hasNext() {
+  hasNext () {
     this.skipBackspace()
     if (this.location >= this.src.length) {
       return false
@@ -13,12 +13,12 @@ export default class Scanner {
     return true
   }
 
-  hasNextExpectCommont() {
+  hasNextExpectCommont () {
     this.skipComment()
     return this.hasNext()
   }
 
-  next() {
+  next () {
     this.skipBackspace()
     var ans = ''
     while (this.location < this.src.length) {
@@ -32,12 +32,12 @@ export default class Scanner {
     return ans
   }
 
-  nextExpectCommont() {
+  nextExpectCommont () {
     this.skipComment()
     return this.next()
   }
 
-  skipBackspace() {
+  skipBackspace () {
     while (this.location < this.src.length) {
       var c = this.src.charAt(this.location)
       if (this.isBackspace(c)) {
@@ -48,7 +48,7 @@ export default class Scanner {
     }
   }
 
-  skipComment() {
+  skipComment () {
     while (this.location < this.src.length) {
       this.skipBackspace()
       const c = this.src.charAt(this.location)
@@ -60,7 +60,7 @@ export default class Scanner {
     }
   }
 
-  jumpToNextLine() {
+  jumpToNextLine () {
     while (this.location < this.src.length) {
       var c = this.src.charAt(this.location)
       if (c !== '\n') {
@@ -72,11 +72,11 @@ export default class Scanner {
     }
   }
 
-  nextNumber() {
+  nextNumber () {
     return Number(this.next())
   }
 
-  numbersBetweenChar(c) {
+  numbersBetweenChar (c) {
     var numbers = this.next().split('/')
     for (var i in numbers) {
       var n = numbers[i]
@@ -85,8 +85,7 @@ export default class Scanner {
     return numbers
   }
 
-  isBackspace(c) {
+  isBackspace (c) {
     return c === '\n' || c === ' ' || c === '\r' || c === '\t'
   }
 }
-

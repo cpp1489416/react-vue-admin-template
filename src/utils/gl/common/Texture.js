@@ -1,12 +1,12 @@
 
 export default class {
-  constructor(gl) {
+  constructor (gl) {
     this.gl = gl
     this.created = false
     this.bound = 0
   }
 
-  create() {
+  create () {
     if (!this.created) {
       this.created = true
       this.gl.activeTexture(this.gl.TEXTURE0 + this.bound)
@@ -15,19 +15,19 @@ export default class {
     return this
   }
 
-  destroy() {
+  destroy () {
     if (this.created) {
       this.created = false
     }
   }
 
-  setSize(width, height) {
+  setSize (width, height) {
     this.width = width
     this.height = height
     return this
   }
 
-  bind() {
+  bind () {
     if (!this.created) {
       this.create()
     }
@@ -37,11 +37,11 @@ export default class {
     return this
   }
 
-  getId() {
+  getId () {
     return this.id
   }
 
-  setWrap(setting) {
+  setWrap (setting) {
     this.bind()
     this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_R, setting)
     this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, setting)
@@ -49,12 +49,12 @@ export default class {
     return this
   }
 
-  setBound(bound) {
+  setBound (bound) {
     this.bound = bound
     return this
   }
 
-  fromImage(url) {
+  fromImage (url) {
     this.bind()
     var image = new Image()
     var that = this
@@ -67,7 +67,7 @@ export default class {
         255, 1, 255, 255
       ]))
 
-    image.onload = function() {
+    image.onload = function () {
       that.bind()
       that.gl.pixelStorei(that.gl.UNPACK_FLIP_Y_WEBGL, true)
       that.gl.texImage2D(that.gl.TEXTURE_2D, 0, that.gl.RGB, that.gl.RGB, that.gl.UNSIGNED_BYTE, image)
@@ -79,7 +79,7 @@ export default class {
     return this
   }
 
-  build() {
+  build () {
     this.bind()
     this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.width, this.height, 0, this.gl.RGBA, this.gl.UNSIGNED_BYTE, null)
     this.gl.texParameterf(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR)

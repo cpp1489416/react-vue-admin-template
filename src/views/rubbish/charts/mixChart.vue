@@ -20,4 +20,3 @@ export default {
   height: calc(100vh - 84px);
 }
 </style>
-

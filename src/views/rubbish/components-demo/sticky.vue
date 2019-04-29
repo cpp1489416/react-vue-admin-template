@@ -97,7 +97,7 @@ import Sticky from '@/components/Sticky'
 export default {
   name: 'StickyDemo',
   components: { Sticky },
-  data() {
+  data () {
     return {
       time: '',
       url: '',
@@ -108,7 +108,7 @@ export default {
         { key: 'c-platform', name: 'platformC' }
       ],
       pickerOptions: {
-        disabledDate(time) {
+        disabledDate (time) {
           return time.getTime() > Date.now()
         }
       }

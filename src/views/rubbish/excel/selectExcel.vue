@@ -51,7 +51,7 @@ import { fetchList } from '@/api/article'
 
 export default {
   name: 'SelectExcel',
-  data() {
+  data () {
     return {
       list: null,
       listLoading: true,
@@ -60,21 +60,21 @@ export default {
       filename: ''
     }
   },
-  created() {
+  created () {
     this.fetchData()
   },
   methods: {
-    fetchData() {
+    fetchData () {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
         this.list = response.data.items
         this.listLoading = false
       })
     },
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.multipleSelection = val
     },
-    handleDownload() {
+    handleDownload () {
       if (this.multipleSelection.length) {
         this.downloadLoading = true
         import('@/vendor/Export2Excel').then(excel => {
@@ -97,7 +97,7 @@ export default {
         })
       }
     },
-    formatJson(filterVal, jsonData) {
+    formatJson (filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => v[j]))
     }
   }

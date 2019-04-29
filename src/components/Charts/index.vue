@@ -32,7 +32,7 @@ export default {
     }
   },
   watch: {
-    option(val) {
+    option (val) {
       if (val === null) {
         return
       }
@@ -40,22 +40,22 @@ export default {
         this.chart.setOption(val, true)
       }, 100)()
     },
-    height(val) {
+    height (val) {
       var that = this
       debounce(() => {
         that.chart.resize()
       }, 100)()
     }
   },
-  data() {
+  data () {
     return {
       chart: null
     }
   },
-  mounted() {
+  mounted () {
     this.initChart()
   },
-  beforeDestroy() {
+  beforeDestroy () {
     if (!this.chart) {
       return
     }
@@ -63,7 +63,7 @@ export default {
     this.chart = null
   },
   methods: {
-    initChart() {
+    initChart () {
       this.chart = echarts.init(document.getElementById(this.id))
     }
   }

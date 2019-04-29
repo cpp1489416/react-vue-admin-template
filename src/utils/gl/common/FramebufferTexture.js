@@ -1,18 +1,18 @@
 import Texture from './Texture'
 
 export default class FramebufferTexture {
-  constructor(gl) {
+  constructor (gl) {
     this.gl = gl
     this.created = false
   }
 
-  setSize(width, height) {
+  setSize (width, height) {
     this.width = width
     this.height = height
     return this
   }
 
-  create() {
+  create () {
     if (!this.created) {
       this.created = true
       this.framebufferId = this.gl.createFramebuffer()
@@ -20,7 +20,7 @@ export default class FramebufferTexture {
     return this
   }
 
-  bindFramebuffer() {
+  bindFramebuffer () {
     if (!this.created) {
       this.create()
     }
@@ -28,30 +28,30 @@ export default class FramebufferTexture {
     return this
   }
 
-  bindDefaultFramebuffer() {
+  bindDefaultFramebuffer () {
     this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null)
     return this
   }
 
-  bindTexture() {
+  bindTexture () {
     this.texture.bind()
     return this
   }
 
-  unbindFramebuffer() {
+  unbindFramebuffer () {
     this.bindDefaultFramebuffer()
     return this
   }
 
-  getFramebufferId() {
+  getFramebufferId () {
     return this.framebufferId
   }
 
-  getTexture() {
+  getTexture () {
     return this.texture
   }
 
-  build() {
+  build () {
     this.setSize(this.width, this.height)
     this.bindFramebuffer()
     this.texture = new Texture(this.gl).setSize(this.width, this.height).build()

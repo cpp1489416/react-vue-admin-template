@@ -3,7 +3,7 @@ import Buffer from '../common/Buffer'
 import VertexArrayObject from '../common/VertexArrayObject'
 
 export default class extends Thing {
-  onCreateVbo() {
+  onCreateVbo () {
     this.vboPositions = new Buffer(this.gl, this.gl.ARRAY_BUFFER, this.gl.STATIC_DRAW)
     this.vboColors = new Buffer(this.gl, this.gl.ARRAY_BUFFER, this.gl.STATIC_DRAW)
 
@@ -31,7 +31,7 @@ export default class extends Thing {
     this.vboColors.setData(colors)
   }
 
-  onCreateVao(technique, requirement) {
+  onCreateVao (technique, requirement) {
     this.vao = new VertexArrayObject(this.gl)
     this.vao.bind()
     var positionAttributeId = technique.getPositionAttribute()
@@ -45,7 +45,7 @@ export default class extends Thing {
     this.gl.vertexAttribPointer(colorAttributeId, 3, this.gl.FLOAT, this.gl.FALSE, 0, this.gl.NULL)
   }
 
-  onDraw() {
+  onDraw () {
     this.vao.bind()
     this.gl.drawArrays(this.gl.LINES, 0, 6)
   }

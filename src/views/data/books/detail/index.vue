@@ -56,7 +56,7 @@ export default {
       'username', 'user'
     ])
   },
-  data() {
+  data () {
     return {
       bookInfo: {
       },
@@ -65,11 +65,11 @@ export default {
       rating: 0,
       ratingLoading: false,
       removeLoading: false,
-      ratingSubmitting: false,
+      ratingSubmitting: false
     }
   },
   methods: {
-    async modify() {
+    async modify () {
       this.modifyLoading = true
 
       await this.ajax.put(
@@ -79,14 +79,14 @@ export default {
         this.$notify({
           title: 'success',
           message: 'modified',
-          type: 'success',
+          type: 'success'
         })
         this.getBookInfo()
       })
       this.modifyLoading = false
       console.log(this)
     },
-    async remove() {
+    async remove () {
       this.$confirm('Will you remove this book?', 'Confirm', {
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
@@ -103,7 +103,7 @@ export default {
       }).catch(() => {
       })
     },
-    getBookInfo() {
+    getBookInfo () {
       this.loading = true
       this.ratingLoading = true
       this.rating = 0
@@ -114,7 +114,7 @@ export default {
         this.loading = false
       })
 
-      this.ajax.get('/books/' + this.$route.params.id + '/rating').then(response=> {
+      this.ajax.get('/books/' + this.$route.params.id + '/rating').then(response => {
         if (response.code === '0') {
           this.rating = response.info.rating
           this.ratingLoading = false
@@ -124,10 +124,10 @@ export default {
         }
       })
     },
-    back() {
+    back () {
       this.$router.back()
     },
-    async rate() {
+    async rate () {
       this.ratingSubmitting = true
       await this.ajax.put('/books/' + this.$route.params.id + '/rating', {
         rating: this.rating
@@ -140,11 +140,11 @@ export default {
       })
       this.ratingSubmitting = false
     },
-    async jumpToRatings() {
+    async jumpToRatings () {
       this.$router.push('/data/books/' + this.$route.params.id + '/ratings')
     }
   },
-  created() {
+  created () {
     this.getBookInfo()
   }
 }
@@ -155,4 +155,3 @@ export default {
   text-align: center;
 }
 </style>
-

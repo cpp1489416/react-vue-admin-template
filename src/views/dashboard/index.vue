@@ -25,32 +25,32 @@ export default {
       'roles'
     ])
   },
-  data() {
+  data () {
     return {
       regenerating: false,
       regenerateInfo: {
         cost_seconds: null,
-        size:  null
+        size: null
       },
       loading: true,
       status: 'loading'
     }
   },
   methods: {
-    async regenerateSimilarity() {
+    async regenerateSimilarity () {
       this.regenerating = true
       await this.ajax.post('/recommendations/regenerate_similarity').then(response => {
         this.regenerateInfo = response.info
         this.$notify({
           message: 'regenerated',
-          type: 'success',
+          type: 'success'
         })
       })
       this.regenerating = false
     },
-    async getStatus() {
+    async getStatus () {
       this.loading = true
-      await this.ajax.get('/recommendations/status').then(response=> {
+      await this.ajax.get('/recommendations/status').then(response => {
         let status = 'similarity last cost seconds: ' + response.info.cost_seconds
 
         if (response.info.precision_generating) {
@@ -67,7 +67,7 @@ export default {
       this.loading = false
     }
   },
-  mounted() {
+  mounted () {
     this.getStatus()
   }
 }

@@ -1,7 +1,7 @@
 import Camera from './Camera'
 
 export default class {
-  constructor(gl) {
+  constructor (gl) {
     this.gl = gl
     this.created = false
     this.things = []
@@ -10,16 +10,16 @@ export default class {
     this.create()
   }
 
-  create() {
+  create () {
     if (!this.created) {
       this.created = true
       this.onCreate()
     }
   }
 
-  destroy() { }
+  destroy () { }
 
-  addComponent(component) {
+  addComponent (component) {
     if (component instanceof Camera) {
       this.camera = component
     } else {
@@ -27,7 +27,7 @@ export default class {
     }
   }
 
-  containsThing(thing) {
+  containsThing (thing) {
     for (var i in this.things) {
       if (this.things[i] === thing) {
         return true
@@ -36,19 +36,19 @@ export default class {
     return false
   }
 
-  getThings() {
+  getThings () {
     return this.things
   }
 
-  getCamera() {
+  getCamera () {
     return this.camera
   }
 
-  setCamera(camera) {
-    this.camera = camera;
+  setCamera (camera) {
+    this.camera = camera
   }
 
-  addThing(thing) {
+  addThing (thing) {
     this.things.push(thing)
     this.onAddThing(thing)
     if (!thing.created) {
@@ -57,7 +57,7 @@ export default class {
     }
   }
 
-  drawThings() {
+  drawThings () {
     this.getProgram().bind()
     this.updateProjectionMatrixAndViewMatrix()
     for (var i in this.things) {
@@ -68,39 +68,39 @@ export default class {
     }
   }
 
-  clearThings() {
+  clearThings () {
     this.things.clear()
   }
 
-  updateModelMatrix(modelMatrix) {
+  updateModelMatrix (modelMatrix) {
     var modelMatrixId = this.getModelMatrixUniform()
     this.gl.uniformMatrix4fv(modelMatrixId, this.gl.FALSE, modelMatrix)
   }
 
-  updateProjectionMatrixAndViewMatrix() {
+  updateProjectionMatrixAndViewMatrix () {
     var projectionId = this.getProjectionMatrixUniform()
     var viewId = this.getViewMatrixUniform()
     this.gl.uniformMatrix4fv(projectionId, this.gl.FALSE, this.camera.getProjectionMatrix())
     this.gl.uniformMatrix4fv(viewId, this.gl.FALSE, this.camera.viewMatrix)
   }
 
-  getAttributeLocation(name) { return this.getProgram().getAttributeId(name) }
-  getUniformLocation(name) { return this.getProgram().getUniformId(name) }
+  getAttributeLocation (name) { return this.getProgram().getAttributeId(name) }
+  getUniformLocation (name) { return this.getProgram().getUniformId(name) }
 
-  getProgram() { return this.program } // get current program
-  getPositionAttribute() { return this.getAttributeLocation('position') }
-  getColorAttribute() { return this.getAttributeLocation('color') }
-  getTextureCoordAttribute() { return this.getAttributeLocation('textureCoord') }
-  getNormalAttribute() { return this.getAttributeLocation('normal') }
-  getProjectionMatrixUniform() { return this.getUniformLocation('projection') }
-  getViewMatrixUniform() { return this.getUniformLocation('view') }
-  getModelMatrixUniform() { return this.getUniformLocation('model') }
-  getLightPositionUniform() { return this.getUniformLocation('uniform') }
-  getLightIntensitiesUniform() { return 0 }
-  getTexture2DUniform() { return 0 }
-  getTextureId() { return 0 }
-  getThingRequirement() { return {} }
+  getProgram () { return this.program } // get current program
+  getPositionAttribute () { return this.getAttributeLocation('position') }
+  getColorAttribute () { return this.getAttributeLocation('color') }
+  getTextureCoordAttribute () { return this.getAttributeLocation('textureCoord') }
+  getNormalAttribute () { return this.getAttributeLocation('normal') }
+  getProjectionMatrixUniform () { return this.getUniformLocation('projection') }
+  getViewMatrixUniform () { return this.getUniformLocation('view') }
+  getModelMatrixUniform () { return this.getUniformLocation('model') }
+  getLightPositionUniform () { return this.getUniformLocation('uniform') }
+  getLightIntensitiesUniform () { return 0 }
+  getTexture2DUniform () { return 0 }
+  getTextureId () { return 0 }
+  getThingRequirement () { return {} }
 
-  onAddThing(thing) {}
-  onCreate() { }
+  onAddThing (thing) {}
+  onCreate () { }
 }

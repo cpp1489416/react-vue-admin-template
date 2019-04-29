@@ -73,7 +73,7 @@ import Pagination from '@/components/Pagination'
 
 export default {
   filters: {
-    statusFilter(status) {
+    statusFilter (status) {
       const statusMap = {
         published: 'success',
         draft: 'gray',
@@ -85,7 +85,7 @@ export default {
   components: {
     Pagination
   },
-  data() {
+  data () {
     return {
       queryParams: {
         k: 4,
@@ -103,11 +103,11 @@ export default {
       ]
     }
   },
-  created() {
+  created () {
     this.reloadPage()
   },
   methods: {
-    async getList(info) {
+    async getList (info) {
       this.listLoading = true
       if (info !== undefined) {
         this.queryParams.page_number = info.page
@@ -128,13 +128,13 @@ export default {
         this.count = response.info.count
         this.content = response.info.content
         this.listLoading = false
-      }, function() {
+      }, function () {
       })
     },
-    reloadPage: function() {
+    reloadPage: function () {
       this.getList()
     },
-    jumpToRatings(id) {
+    jumpToRatings (id) {
       this.$router.push({
         name: 'ratings_of_book',
         params: {
@@ -142,10 +142,10 @@ export default {
         }
       })
     },
-    jumpToBookInfo(id) {
+    jumpToBookInfo (id) {
       this.$router.push('/data/books/' + id)
     },
-    formatRank(row,column) {
+    formatRank (row, column) {
       return row.rank.toFixed(4)
     }
   }

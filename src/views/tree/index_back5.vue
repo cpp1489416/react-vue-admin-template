@@ -33,7 +33,7 @@ import TextureTechnique from '../../utils/gl/techniques/TextureTechnique'
 import Quad from '../../utils/gl/things/Quad'
 
 export default {
-  data() {
+  data () {
     return {
       canvas: null,
       camera: null,
@@ -53,18 +53,18 @@ export default {
     }
   },
   watch: {
-    filterText(val) {
+    filterText (val) {
     }
   },
-  mounted() {
+  mounted () {
     var canvas = this.$refs.tree
     this.canvas = canvas
-    this.$nextTick(function() {
+    this.$nextTick(function () {
     })
   },
 
   methods: {
-    repaint: function() {
+    repaint: function () {
       // 获取canvas元素
       // 获取绘制二维上下文
       var gl = this.canvas.getContext('webgl2')
@@ -76,7 +76,7 @@ export default {
       this.paintGl()
     },
 
-    initGl: async function() {
+    initGl: async function () {
       this.camera = new Camera(this.gl)
       this.camera.lookAt([50, 50, -50], [0, 1, 0], [0, 1, 0])
       // this.camera.perspective(-50, 50, 50, -50, -4.3, 500)
@@ -117,14 +117,14 @@ export default {
       setInterval(this.timePass, 100)
     },
 
-    paintGl: function() {
+    paintGl: function () {
       this.gl.clear(this.gl.DEPTH_BUFFER_BIT | this.gl.COLOR_BUFFER_BIT)
       this.skyboxTechnique.drawThings()
       this.technique.drawThings()
       this.textureTechnique.drawThings()
     },
 
-    timePass: function() {
+    timePass: function () {
       this.paintGl()
       return
       if (this.mesh !== null) {
@@ -132,22 +132,21 @@ export default {
         this.mesh.transform.rotation = vec3.fromValues(this.now, this.now, this.now)
       }
     },
-    walk() {
+    walk () {
       this.camera.walk(Number(this.walkDistance))
     },
-    fly() {
+    fly () {
       this.camera.fly(Number(this.flyDistance))
     },
-    strafe() {
+    strafe () {
       this.camera.strafe(Number(this.strafeDistance))
     },
-    pitch() {
+    pitch () {
       this.camera.pitch(Number(this.pitchDistance))
     },
-    yall() {
+    yall () {
       this.camera.yall(Number(this.yallDistance))
     }
   }
 }
 </script>
-

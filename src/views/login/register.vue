@@ -41,7 +41,7 @@
 
 export default {
   name: 'Login',
-  data() {
+  data () {
     const validateUsername = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('用户名不能为空'))
@@ -71,7 +71,7 @@ export default {
       registerForm: {
         username: '',
         password: '',
-        password_confirm: '',
+        password_confirm: ''
       },
       loading: false,
       pwdType: 'password',
@@ -81,7 +81,7 @@ export default {
   watch: {
   },
   methods: {
-    async register() {
+    async register () {
       let valid = true
       await this.$refs.loginForm.validate(value => {
         valid = value

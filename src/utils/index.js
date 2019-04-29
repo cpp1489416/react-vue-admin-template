@@ -2,7 +2,7 @@
  * Created by jiachenpan on 16/11/18.
  */
 
-export function parseTime(time, cFormat) {
+export function parseTime (time, cFormat) {
   if (arguments.length === 0) {
     return null
   }
@@ -35,7 +35,7 @@ export function parseTime(time, cFormat) {
   return time_str
 }
 
-export function formatTime(time, option) {
+export function formatTime (time, option) {
   time = +time * 1000
   const d = new Date(time)
   const now = Date.now()
@@ -69,14 +69,14 @@ export function formatTime(time, option) {
   }
 }
 
-export function isExternal(path) {
+export function isExternal (path) {
   return /^(https?:|mailto:|tel:)/.test(path)
 }
 
-export function debounce(func, wait, immediate) {
+export function debounce (func, wait, immediate) {
   let timeout, args, context, timestamp, result
 
-  const later = function() {
+  const later = function () {
     // 据上一次触发时间间隔
     const last = +new Date() - timestamp
 
@@ -93,7 +93,7 @@ export function debounce(func, wait, immediate) {
     }
   }
 
-  return function(...args) {
+  return function (...args) {
     context = this
     timestamp = +new Date()
     const callNow = immediate && !timeout

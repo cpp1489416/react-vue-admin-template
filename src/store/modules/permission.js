@@ -5,7 +5,7 @@ import { asyncRouterMap, constantRouterMap } from '@/router'
  * @param roles
  * @param route
  */
-function hasPermission(roles, route) {
+function hasPermission (roles, route) {
   if (route.meta && route.meta.roles) {
     return roles.some(role => route.meta.roles.includes(role))
   } else {
@@ -18,7 +18,7 @@ function hasPermission(roles, route) {
  * @param routes asyncRouterMap
  * @param roles
  */
-function filterAsyncRouter(routes, roles) {
+function filterAsyncRouter (routes, roles) {
   const res = []
 
   routes.forEach(route => {
@@ -46,7 +46,7 @@ const permission = {
     }
   },
   actions: {
-    GenerateRoutes({ commit }, data) {
+    GenerateRoutes ({ commit }, data) {
       return new Promise(resolve => {
         const { roles } = data
         let accessedRouters

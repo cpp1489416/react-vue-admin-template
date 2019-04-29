@@ -2,7 +2,7 @@
 import { vec3, vec4, mat4, quat } from 'gl-matrix'
 
 export default class MatrixMath {
-  static reflectMatrix(m, plane) {
+  static reflectMatrix (m, plane) {
     m[0] = 1 - 2 * plane[0] * plane[0]
     m[4] = -2 * plane[1] * plane[0]
     m[8] = -2 * plane[2] * plane[0]
@@ -26,7 +26,7 @@ export default class MatrixMath {
     return m
   }
 
-  static reflectVector(out, vec, plane) {
+  static reflectVector (out, vec, plane) {
     var i = vec3.normalize(vec3.create(), vec)
     var n = vec3.normalize(vec3.create(), plane)
     var s2 = vec3.scale(vec3.create(), n, -2 * vec3.dot(i, n))
@@ -35,7 +35,7 @@ export default class MatrixMath {
     return out
   }
 
-  static normalizePlane(out, plane) {
+  static normalizePlane (out, plane) {
     var len = 1.0 / Math.sqrt(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2])
     out[0] = plane[0] * len
     out[1] = plane[1] * len
@@ -44,7 +44,7 @@ export default class MatrixMath {
     return out
   }
 
-  static pointPlaneToVectorPlane(out, vec1, vec2, vec3) {
+  static pointPlaneToVectorPlane (out, vec1, vec2, vec3) {
     //
     // (y2*z3 - y2*z1 - y1*z3 - y3*z2 + y1*z2 + y3*z1)*X +
     // (x3*z2 - x1*z2 - x3*z1 - x2*z3 + x2*z1 + x1*z3)*Y +
@@ -67,21 +67,21 @@ export default class MatrixMath {
     return MatrixMath.normalizePlane(out, out)
   }
 
-  static transformPlane(out, plane, m) {
+  static transformPlane (out, plane, m) {
     var m1 = mat4.invert(mat4.create, m)
     m1 = mat4.transpose(m1, m1)
     vec4.transformMat4(out, plane, m1)
     return out
   }
 
-  static changePlaneNormalDirection(out, plane) {
+  static changePlaneNormalDirection (out, plane) {
     out[0] = -plane[0]
     out[1] = -plane[1]
     out[2] = -plane[2]
     out[3] = -plane[3]
   }
 
-  static quadToEuler(out, q) {
+  static quadToEuler (out, q) {
     var x = q[0]
     var y = q[1]
     var z = q[2]
@@ -112,7 +112,7 @@ export default class MatrixMath {
     out[0] *= 180.0 / Math.PI
   }
 
-  static getRotationMatrix(out, m) {
+  static getRotationMatrix (out, m) {
     var v0 = [m[0], m[1], m[2]]
     var v1 = [m[4], m[5], m[6]]
     var v2 = [m[8], m[9], m[10]]
@@ -129,7 +129,7 @@ export default class MatrixMath {
     return out
   }
 
-  static getRotationEuler(out, m) {
+  static getRotationEuler (out, m) {
     var v0 = [m[0], m[1], m[2]]
     var v1 = [m[4], m[5], m[6]]
     var v2 = [m[8], m[9], m[10]]
@@ -151,7 +151,7 @@ export default class MatrixMath {
     return out
   }
 
-  static getRotationMatrixFromEuler(out, euler) {
+  static getRotationMatrixFromEuler (out, euler) {
     var x = mat4.fromXRotation(mat4.create(), euler[0] / 180.0 * Math.PI)
     var y = mat4.fromYRotation(mat4.create(), euler[1] / 180.0 * Math.PI)
     var z = mat4.fromZRotation(mat4.create(), euler[2] / 180.0 * Math.PI)

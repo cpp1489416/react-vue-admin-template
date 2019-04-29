@@ -40,7 +40,7 @@ export default {
       'username', 'user'
     ])
   },
-  data() {
+  data () {
     return {
       userInfo: {
         username: '',
@@ -51,13 +51,13 @@ export default {
         avatar_url: ''
       },
       userId: 0,
-      loading:true,
+      loading: true,
       modifyLoading: false,
-      rating: 0,
-   }
+      rating: 0
+    }
   },
   methods: {
-    async modify() {
+    async modify () {
       this.modifyLoading = true
       await this.ajax.put('/users/' + this.userId, this.userInfo).then(response => {
         this.userInfo = response.info
@@ -68,7 +68,7 @@ export default {
       })
       this.modifyLoading = false
     },
-    async getUser() {
+    async getUser () {
       this.loading = true
 
       await this.ajax.get('/users/' + this.userId).then(response => {
@@ -76,16 +76,15 @@ export default {
       })
 
       this.loading = false
-
     },
-    back() {
+    back () {
       this.$router.push('/data/books')
     },
-    jumpToRecommendations() {
+    jumpToRecommendations () {
       this.$router.push('/data/users/' + this.userId + '/recommendations')
     }
   },
-  created() {
+  created () {
     this.userId = this.$route.params.id
     this.getUser()
   }
@@ -97,4 +96,3 @@ export default {
   text-align: center;
 }
 </style>
-

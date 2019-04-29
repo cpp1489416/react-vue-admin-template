@@ -57,7 +57,7 @@ import { fetchList } from '@/api/article'
 
 export default {
   filters: {
-    statusFilter(status) {
+    statusFilter (status) {
       const statusMap = {
         published: 'success',
         draft: 'info',
@@ -72,7 +72,7 @@ export default {
       default: 'CN'
     }
   },
-  data() {
+  data () {
     return {
       list: null,
       listQuery: {
@@ -84,11 +84,11 @@ export default {
       loading: false
     }
   },
-  created() {
+  created () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       this.loading = true
       this.$emit('create') // for test
       fetchList(this.listQuery).then(response => {
@@ -99,4 +99,3 @@ export default {
   }
 }
 </script>
-

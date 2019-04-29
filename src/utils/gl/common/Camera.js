@@ -1,10 +1,10 @@
 
 export default class Camera {
-  constructor() {
+  constructor () {
     this.eventListeners = []
   }
 
-  addEventListener(e) {
+  addEventListener (e) {
     if (this.containsEventListener(e)) {
       return this
     }
@@ -12,7 +12,7 @@ export default class Camera {
     return this
   }
 
-  containsEventListener(lis) {
+  containsEventListener (lis) {
     for (var i in this.eventListeners) {
       if (this.eventListeners[i] === lis) {
         return true
@@ -21,7 +21,7 @@ export default class Camera {
     return false
   }
 
-  notifyProjectionMatrixChanged() {
+  notifyProjectionMatrixChanged () {
     for (var i in this.eventListeners) {
       if (this.eventListeners[i].onProjectionMatrixChanged) {
         this.eventListeners[i].onProjectionMatrixChanged()
@@ -29,7 +29,7 @@ export default class Camera {
     }
   }
 
-  notifyViewMatrixChanged() {
+  notifyViewMatrixChanged () {
     for (var i in this.eventListeners) {
       if (this.eventListeners[i].onViewMatrixChanged) {
         this.eventListeners[i].onViewMatrixChanged()

@@ -33,209 +33,209 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import Chart from '@/components/Charts'
+import { mapGetters } from 'vuex'
+import Chart from '@/components/Charts'
 
-  export default {
-    components: { Chart },
-    computed: {
-      ...mapGetters([
-        'username', 'user'
-      ])
-    },
-    watch: {},
-    data() {
-      const validateKs = (rule, value, callback) => {
-        try {
-          JSON.parse(value)
-          this.dialog.invalidated = false
-          callback()
-        } catch (e) {
-          this.dialog.invalidated = true
-          callback(new Error('k array must like "[1, 3, 5, 10, 20, 50, 100, 500, 1000]"'))
-        }
+export default {
+  components: { Chart },
+  computed: {
+    ...mapGetters([
+      'username', 'user'
+    ])
+  },
+  watch: {},
+  data () {
+    const validateKs = (rule, value, callback) => {
+      try {
+        JSON.parse(value)
+        this.dialog.invalidated = false
+        callback()
+      } catch (e) {
+        this.dialog.invalidated = true
+        callback(new Error('k array must like "[1, 3, 5, 10, 20, 50, 100, 500, 1000]"'))
       }
-      return {
-        chartHeight: "0px",
-        option: null,
-        loading: true,
-        dialog: {
-          visible: false,
-          ks: '[1, 3, 5, 10, 20, 50, 100, 500, 1000]',
-          loading: false,
-          invalidated: false,
-          rules: {
-            ks: [{ required: true, trigger: 'change', validator: validateKs}],
-          },
-        },
+    }
+    return {
+      chartHeight: '0px',
+      option: null,
+      loading: true,
+      dialog: {
+        visible: false,
+        ks: '[1, 3, 5, 10, 20, 50, 100, 500, 1000]',
+        loading: false,
+        invalidated: false,
+        rules: {
+          ks: [{ required: true, trigger: 'change', validator: validateKs}]
+        }
+      },
 
-        optionDefault:  {
-          backgroundColor: '#344b58',
-          title: {
-            text: 'precision',
-            x: '20',
-            top: '20',
-            textStyle: {
-              color: '#fff',
-              fontSize: '22'
-            },
-            subtextStyle: {
-              color: '#90979c',
-              fontSize: '16'
-            }
+      optionDefault: {
+        backgroundColor: '#344b58',
+        title: {
+          text: 'precision',
+          x: '20',
+          top: '20',
+          textStyle: {
+            color: '#fff',
+            fontSize: '22'
           },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              textStyle: {
-                color: '#fff'
-              }
-            }
-          },
-          grid: {
-            left: '5%',
-            right: '5%',
-            borderWidth: 0,
-            top: 150,
-            bottom: 95,
+          subtextStyle: {
+            color: '#90979c',
+            fontSize: '16'
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
             textStyle: {
               color: '#fff'
             }
+          }
+        },
+        grid: {
+          left: '5%',
+          right: '5%',
+          borderWidth: 0,
+          top: 150,
+          bottom: 95,
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        legend: {
+          x: '5%',
+          top: '10%',
+          textStyle: {
+            color: '#90979c'
           },
-          legend: {
-            x: '5%',
-            top: '10%',
-            textStyle: {
+          data: ['precision']
+        },
+        calculable: true,
+        xAxis: [{
+          type: 'category',
+          name: 'k',
+          axisLine: {
+            lineStyle: {
               color: '#90979c'
-            },
-            data: ['precision']
-          },
-          calculable: true,
-          xAxis: [{
-            type: 'category',
-            name: 'k',
-            axisLine: {
-              lineStyle: {
-                color: '#90979c'
-              }
-            },
-            splitLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
-            },
-            splitArea: {
-              show: false
-            },
-            axisLabel: {
-              interval: 0
-
-            },
-            data: [10, 30]
-          }],
-          yAxis: [{
-            type: 'value',
-            splitLine: {
-              show: false
-            },
-            axisLine: {
-              lineStyle: {
-                color: '#90979c'
-              }
-            },
-            axisTick: {
-              show: false
-            },
-            axisLabel: {
-              interval: 0
-            },
-            splitArea: {
-              show: false
             }
-          }],
-          series: [
-            {
-              name: 'precision',
-              type: 'line',
-              stack: 'total',
-              symbolSize: 10,
-              symbol: 'circle',
-              itemStyle: {
-                normal: {
-                  color: 'rgba(252,230,48,1)',
-                  barBorderRadius: 0,
-                  label: {
-                    show: true,
-                    position: 'top',
-                    formatter(p) {
-                      return p.value > 0 ? p.value : ''
-                    }
+          },
+          splitLine: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+          splitArea: {
+            show: false
+          },
+          axisLabel: {
+            interval: 0
+
+          },
+          data: [10, 30]
+        }],
+        yAxis: [{
+          type: 'value',
+          splitLine: {
+            show: false
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#90979c'
+            }
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            interval: 0
+          },
+          splitArea: {
+            show: false
+          }
+        }],
+        series: [
+          {
+            name: 'precision',
+            type: 'line',
+            stack: 'total',
+            symbolSize: 10,
+            symbol: 'circle',
+            itemStyle: {
+              normal: {
+                color: 'rgba(252,230,48,1)',
+                barBorderRadius: 0,
+                label: {
+                  show: true,
+                  position: 'top',
+                  formatter (p) {
+                    return p.value > 0 ? p.value : ''
                   }
                 }
-              },
-              data: [
-                0.3,
-                0.032
-              ]
-            }
-          ]
-        },
-      }
-    },
-    methods: {
-      async getPrecision() {
-        this.loading = true
-
-        var that = this
-        await this.ajax.get('/recommendations/precision').then(response => {
-          console.log(response.info)
-          let ks = []
-          let values = []
-          for(const id in response.info) {
-            ks.push(response.info[id].k)
-            values.push(response.info[id].value)
+              }
+            },
+            data: [
+              0.3,
+              0.032
+            ]
           }
-          console.log(ks)
-          console.log(values)
-          const option = Object.assign({}, this.optionDefault)
-          option.xAxis[0].data = ks
-          option.series[0].data = values
-          that.option = option
-        })
-        this.loading = false
-      },
-      closeDialog() {
-        this.dialog.visible = false
-      },
-      async regenerate() {
-        this.dialog.loading = true
-        const ks = JSON.parse(this.dialog.ks)
-        console.log(ks)
-
-        this.ajax.put('/recommendations/precision', {
-          ks: ks
-        }).then(response => {
-          this.dialog.loading = false
-          this.getPrecision()
-        })
-        this.$notify({
-          message: 'the request is sent',
-          type: 'success'
-        })
-        this.closeDialog()
+        ]
       }
-    },
-    mounted() {
-      var that = this
-      var resize = function() {
-        that.chartHeight = "calc(100% - " + that.$refs.filter_container.offsetHeight + "px)"
-      }
-      window.addEventListener('resize', resize)
-      resize()
-      this.getPrecision()
     }
+  },
+  methods: {
+    async getPrecision () {
+      this.loading = true
+
+      var that = this
+      await this.ajax.get('/recommendations/precision').then(response => {
+        console.log(response.info)
+        let ks = []
+        let values = []
+        for (const id in response.info) {
+          ks.push(response.info[id].k)
+          values.push(response.info[id].value)
+        }
+        console.log(ks)
+        console.log(values)
+        const option = Object.assign({}, this.optionDefault)
+        option.xAxis[0].data = ks
+        option.series[0].data = values
+        that.option = option
+      })
+      this.loading = false
+    },
+    closeDialog () {
+      this.dialog.visible = false
+    },
+    async regenerate () {
+      this.dialog.loading = true
+      const ks = JSON.parse(this.dialog.ks)
+      console.log(ks)
+
+      this.ajax.put('/recommendations/precision', {
+        ks: ks
+      }).then(response => {
+        this.dialog.loading = false
+        this.getPrecision()
+      })
+      this.$notify({
+        message: 'the request is sent',
+        type: 'success'
+      })
+      this.closeDialog()
+    }
+  },
+  mounted () {
+    var that = this
+    var resize = function () {
+      that.chartHeight = 'calc(100% - ' + that.$refs.filter_container.offsetHeight + 'px)'
+    }
+    window.addEventListener('resize', resize)
+    resize()
+    this.getPrecision()
   }
+}
 </script>
 
 <style scoped>
@@ -259,4 +259,3 @@
 
   }
 </style>
-

@@ -11,7 +11,7 @@ import { getToken } from '@/api/qiniu'
 // 七牛官方sdk https://developer.qiniu.com/sdk#official-sdk
 
 export default{
-  data() {
+  data () {
     return {
       dataObj: { token: '', key: '' },
       image_uri: [],
@@ -19,7 +19,7 @@ export default{
     }
   },
   methods: {
-    beforeUpload() {
+    beforeUpload () {
       const _self = this
       return new Promise((resolve, reject) => {
         getToken().then(response => {

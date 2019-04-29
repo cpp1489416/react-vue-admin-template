@@ -6,7 +6,7 @@ import BasicCamera from './BasicCamera'
 import MatrixMath from '../tools/MatrixMath'
 
 export default class PlaneReflectedCamera extends Camera {
-  constructor(parentCamera, plane) {
+  constructor (parentCamera, plane) {
     super()
     this.parentCamera = parentCamera
     this.parentCamera.addEventListener(this)
@@ -16,17 +16,17 @@ export default class PlaneReflectedCamera extends Camera {
     this.changePlane(plane)
   }
 
-  changePlane(plane) {
+  changePlane (plane) {
     this.plane = plane
     this.onViewMatrixChanged()
     return this
   }
 
-  getPlane(plane) {
+  getPlane (plane) {
     return this.plane
   }
 
-  onViewMatrixChanged() {
+  onViewMatrixChanged () {
     if (this.plane === null) {
       this.xVector = this.parentCamera.xVector
       this.yVector = this.parentCamera.yVector
@@ -44,11 +44,11 @@ export default class PlaneReflectedCamera extends Camera {
     this.notifyViewMatrixChanged()
   }
 
-  onProjectionMatrixChanged() {
+  onProjectionMatrixChanged () {
     this.notifyProjectionMatrixChanged()
   }
 
-  updateViewMatrix() {
+  updateViewMatrix () {
     var x = -vec3.dot(this.xVector, this.position)
     var y = -vec3.dot(this.yVector, this.position)
     var z = -vec3.dot(this.zVector, this.position)
@@ -67,27 +67,27 @@ export default class PlaneReflectedCamera extends Camera {
     this.correctPlaneNormalDirection()
   }
 
-  correctPlaneNormalDirection() {
+  correctPlaneNormalDirection () {
     if (vec4.dot(vec4.fromValues(this.position[0], this.position[1], this.position[2], 1), this.plane) > 0) {
       MatrixMath.changePlaneNormalDirection(this.plane, this.plane)
     }
   }
 
-  getSkyboxViewMatrix() {
+  getSkyboxViewMatrix () {
     var view = mat4.clone(this.getViewMatrix())
     view[12] = view[13] = view[14] = 0
     return view
   }
 
-  getViewMatrix() {
+  getViewMatrix () {
     return this.viewMatrix
   }
 
-  getProjectionMatrix() {
+  getProjectionMatrix () {
     return this.parentCamera.getProjectionMatrix()
   }
 
-  getPosition() {
+  getPosition () {
     return this.position
   }
 }

@@ -55,7 +55,7 @@ import BookTypeOption from './components/BookTypeOption'
 export default {
   name: 'ExportExcel',
   components: { FilenameOption, AutoWidthOption, BookTypeOption },
-  data() {
+  data () {
     return {
       list: null,
       listLoading: true,
@@ -65,18 +65,18 @@ export default {
       bookType: 'xlsx'
     }
   },
-  created() {
+  created () {
     this.fetchData()
   },
   methods: {
-    fetchData() {
+    fetchData () {
       this.listLoading = true
       fetchList().then(response => {
         this.list = response.data.items
         this.listLoading = false
       })
     },
-    handleDownload() {
+    handleDownload () {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']
@@ -93,7 +93,7 @@ export default {
         this.downloadLoading = false
       })
     },
-    formatJson(filterVal, jsonData) {
+    formatJson (filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
         if (j === 'timestamp') {
           return parseTime(v[j])
@@ -114,4 +114,3 @@ export default {
   padding: 0 12px 0 30px;
 }
 </style>
-

@@ -1,12 +1,12 @@
 
 export default class {
-  constructor(gl) {
+  constructor (gl) {
     this.gl = gl
     this.created = false
     this.bound = 0
   }
 
-  create() {
+  create () {
     if (!this.created) {
       this.created = true
       this.gl.pixelStorei(this.gl.UNPACK_FLIP_Y_WEBGL, true)
@@ -14,13 +14,13 @@ export default class {
     }
   }
 
-  destroy() {
+  destroy () {
     if (this.created) {
       this.created = false
     }
   }
 
-  bind() {
+  bind () {
     if (!this.created) {
       this.create()
     }
@@ -28,11 +28,11 @@ export default class {
     this.gl.bindTexture(this.gl.TEXTURE_2D_ARRAY, this.id)
   }
 
-  getId() {
+  getId () {
     return this.id
   }
 
-  setWrap(setting) {
+  setWrap (setting) {
     this.bind()
     this.gl.texParameteri(this.gl.TEXTURE_2D_ARRAY, this.gl.TEXTURE_WRAP_R, setting)
     this.gl.texParameteri(this.gl.TEXTURE_2D_ARRAY, this.gl.TEXTURE_WRAP_S, setting)
@@ -40,19 +40,19 @@ export default class {
     return this
   }
 
-  setBound(bound) {
+  setBound (bound) {
     this.bound = bound
     return this
   }
 
-  fromImage(url) {
+  fromImage (url) {
     this.bind()
     var image = new Image()
     var that = this
     this.gl.pixelStorei(this.gl.UNPACK_FLIP_Y_WEBGL, false)
     this.gl.texImage3D(this.gl.TEXTURE_2D_ARRAY, 0, this.gl.RGBA, 1, 1, 0, this.gl.RGBA, this.gl.UNSIGNED_BYTE, new Uint8Array([255, 122, 255, 255]))
 
-    image.onload = function() {
+    image.onload = function () {
       that.bind()
       that.gl.pixelStorei(that.gl.UNPACK_FLIP_Y_WEBGL, true)
       that.gl.texImage3D(

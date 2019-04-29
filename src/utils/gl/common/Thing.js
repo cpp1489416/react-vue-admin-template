@@ -1,7 +1,7 @@
 import Transform from './Transform'
 
 export default class {
-  constructor(gl) {
+  constructor (gl) {
     this.gl = gl
     this.created = false
     this.technique = null
@@ -10,25 +10,25 @@ export default class {
     this.visible = true
   }
 
-  create() {
+  create () {
     if (!this.created) {
       this.created = true
       this.onCreateVbo()
     }
   }
 
-  setVisible(visible) {
+  setVisible (visible) {
     this.visible = visible
   }
 
-  draw() {
+  draw () {
     if (!this.visible) {
       return
     }
     this.onDraw()
   }
 
-  createVao(technique, requirement) {
+  createVao (technique, requirement) {
     technique.getProgram().bind()
     this.onCreateVao(technique, requirement)
     return this

@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+/* Layout */
+import Layout from '../views/layout/Layout'
+import permission from './permission'
+
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
 
 Vue.use(Router)
-
-/* Layout */
-import Layout from '../views/layout/Layout'
-import permission from './permission'
 
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -63,6 +63,12 @@ export const constantRouterMap = [
         component: () => import('@/views/my_data/profile'),
         meta: {title: 'Profile', icon: 'edit'}
       },
+      {
+        path: 'index',
+        name: 'index',
+        component: () => import('@/views/my_data'),
+        meta: {title: 'Profile', icon: 'edit'}
+      }
     ]
   },
   {
@@ -125,8 +131,8 @@ export const constantRouterMap = [
         name: 'profile_of_user',
         component: () => import('@/views/data/users/detail/profile'),
         meta: {title: 'Profile Of User', icon: 'form'}
-      },
-    ],
+      }
+    ]
   },
   {
     path: '/metrics',
@@ -152,15 +158,14 @@ export const constantRouterMap = [
         name: 'coverage',
         component: () => import('@/views/metrics/coverage'),
         meta: {title: 'Coverage', icon: 'chart'}
-      },
+      }
     ]
   },
   {
-    hidden: true,
     path: '/3d',
     component: Layout,
-    redirect: '/3d/',
-    name: 'Data',
+    redirect: '/3d/example',
+    name: '3D',
     meta: { title: 'Data', icon: 'example' },
     children: [
       {

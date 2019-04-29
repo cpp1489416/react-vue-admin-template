@@ -5,7 +5,7 @@ import vs_code from '@/assets/shaders/main_vertex_shader.glsl'
 import ps_code from '@/assets/shaders/main_fragment_shader.glsl'
 
 export default class extends Technique {
-  onCreate() {
+  onCreate () {
     this.vertexShader = new Shader(this.gl, this.gl.VERTEX_SHADER).compile(vs_code)
     this.fragmentShader = new Shader(this.gl, this.gl.FRAGMENT_SHADER).compile(ps_code)
     this.program = new Program(this.gl)
@@ -54,7 +54,7 @@ export default class extends Technique {
     this.gl.uniform1i(this.locations.uniforms.diffuseMap, 1)
   }
 
-  drawThings() {
+  drawThings () {
     this.getProgram().bind()
     this.updateProjectionMatrixAndViewMatrix()
     this.setEyePosition(this.getCamera().getPosition())
@@ -67,26 +67,26 @@ export default class extends Technique {
     }
   }
 
-  getPositionAttribute() { return this.locations.attributes.position }
-  getTextureCoordAttribute() { return this.locations.attributes.textureCoord }
-  getNormalAttribute() { return this.locations.attributes.normal }
-  getProjectionMatrixUniform() { return this.locations.uniforms.projectionMatrix }
-  getViewMatrixUniform() { return this.locations.uniforms.viewMatrix }
-  getModelMatrixUniform() { return this.locations.uniforms.modelMatrix }
-  getSamplerUniform() { return null }
-  getAmbientMapTextureBound() { return 0 }
-  getDiffuseMapTextureBound() { return 1 }
+  getPositionAttribute () { return this.locations.attributes.position }
+  getTextureCoordAttribute () { return this.locations.attributes.textureCoord }
+  getNormalAttribute () { return this.locations.attributes.normal }
+  getProjectionMatrixUniform () { return this.locations.uniforms.projectionMatrix }
+  getViewMatrixUniform () { return this.locations.uniforms.viewMatrix }
+  getModelMatrixUniform () { return this.locations.uniforms.modelMatrix }
+  getSamplerUniform () { return null }
+  getAmbientMapTextureBound () { return 0 }
+  getDiffuseMapTextureBound () { return 1 }
 
-  setNormalMatrix(matrix) {
+  setNormalMatrix (matrix) {
     this.gl.uniformMatrix4fv(this.locations.uniforms.normalMatrix, this.gl.FALSE, matrix)
   }
 
-  setEyePosition(position) {
+  setEyePosition (position) {
     this.getProgram().bind()
     this.gl.uniform3fv(this.locations.uniforms.eyePosition, position)
   }
 
-  setClipPlane0(plane) {
+  setClipPlane0 (plane) {
     this.getProgram().bind()
     if (plane === null || plane.enabled === 0 || plane.enabled === false) {
       this.gl.uniform1i(this.locations.uniforms.clipPlane0.enabled, 0)
@@ -102,12 +102,12 @@ export default class extends Technique {
     }
   }
 
-  setAmbientLightIntensity(intensity) {
+  setAmbientLightIntensity (intensity) {
     this.getProgram().bind()
     this.gl.uniform1f(this.locations.uniforms.ambientLightIntensity, intensity)
   }
 
-  setMaterial(material) {
+  setMaterial (material) {
     this.getProgram().bind()
     // illum
     this.gl.uniform1i(this.locations.uniforms.material.illum, material.illum)
@@ -145,7 +145,7 @@ export default class extends Technique {
     this.gl.uniform1i(this.locations.uniforms.material.normalExist, material.normalExist)
   }
 
-  setDirectionLight(light) {
+  setDirectionLight (light) {
     this.getProgram().bind()
     if (light === null || light.enabled === 0 || light.enabled === false) {
       this.gl.uniform1i(this.locations.uniforms.directionLight.enabled, 0)
@@ -157,7 +157,7 @@ export default class extends Technique {
     }
   }
 
-  getThingRequirement() {
+  getThingRequirement () {
     return {
       needColor: false,
       needNormal: true,

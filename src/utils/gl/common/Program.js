@@ -1,17 +1,17 @@
 
 export default class {
-  constructor(gl) {
+  constructor (gl) {
     this.gl = gl
     this.created = false
     this.linked = false
     this.id = null
   }
 
-  getId() {
+  getId () {
     return this.id
   }
 
-  create() {
+  create () {
     if (!this.created) {
       this.created = true
       this.id = this.gl.createProgram()
@@ -19,7 +19,7 @@ export default class {
     return this
   }
 
-  destroy() {
+  destroy () {
     if (this.created) {
       this.created = false
       this.linked = false
@@ -28,7 +28,7 @@ export default class {
     return this
   }
 
-  link() {
+  link () {
     if (!this.linked) {
       this.linked = true
       this.gl.linkProgram(this.id)
@@ -40,7 +40,7 @@ export default class {
     return this
   }
 
-  bind() {
+  bind () {
     if (!this.created) {
       this.create()
     }
@@ -51,12 +51,12 @@ export default class {
     return this
   }
 
-  unbind() {
+  unbind () {
     this.gl.useProgram(0)
     return this
   }
 
-  addShader(shader) {
+  addShader (shader) {
     if (!this.created) {
       this.create()
     }
@@ -64,20 +64,20 @@ export default class {
     return this
   }
 
-  getAttributeId(name) {
+  getAttributeId (name) {
     return this.gl.getAttribLocation(this.id, name)
   }
 
-  getUniformId(name) {
+  getUniformId (name) {
     return this.gl.getUniformLocation(this.id, name)
   }
 
-  setAttributeBuffer(id, size, type, stride) {
+  setAttributeBuffer (id, size, type, stride) {
     this.gl.enableVertexAttribArray(id)
     this.gl.vertexAttribPointer(id, size, type, this.gl.FALSE, stride, this.gl.NULL)
   }
 
-  setUniformValue(name, x, y, z) {
+  setUniformValue (name, x, y, z) {
     var id = this.getAttributeId(name)
     this.gl.uniform3f(id, x, y, z)
   }

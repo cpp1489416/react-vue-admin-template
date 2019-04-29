@@ -52,7 +52,7 @@ const content = `
 export default {
   name: 'MarkdownDemo',
   components: { MarkdownEditor },
-  data() {
+  data () {
     return {
       content: content,
       html: '',
@@ -64,12 +64,12 @@ export default {
     }
   },
   computed: {
-    language() {
+    language () {
       return this.languageTypeList[this.$store.getters.language]
     }
   },
   methods: {
-    getHtml() {
+    getHtml () {
       this.html = this.$refs.markdownEditor.getHtml()
       console.log(this.html)
     }

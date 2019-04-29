@@ -24,10 +24,10 @@ export default {
     ...mapGetters([
       'sidebar'
     ]),
-    routes() {
+    routes () {
       return this.$router.options.routes
     },
-    isCollapse() {
+    isCollapse () {
       return !this.sidebar.opened
     }
   }

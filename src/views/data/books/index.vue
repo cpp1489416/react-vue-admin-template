@@ -97,7 +97,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   filters: {
-    statusFilter(status) {
+    statusFilter (status) {
       const statusMap = {
         published: 'success',
         draft: 'gray',
@@ -114,7 +114,7 @@ export default {
       'user'
     ])
   },
-  data() {
+  data () {
     return {
       queryParams: {
         title: null,
@@ -141,11 +141,11 @@ export default {
       ratingDialogTitle: 'Rating of book ""'
     }
   },
-  created() {
+  created () {
     this.reloadPage()
   },
   methods: {
-    getList: function(info) {
+    getList: function (info) {
       this.listLoading = true
       if (info !== undefined) {
         this.queryParams.page_number = info.page
@@ -162,13 +162,13 @@ export default {
         this.count = response.info.count
         this.content = response.info.content
         this.listLoading = false
-      }, function() {
+      }, function () {
       })
     },
-    reloadPage: function() {
+    reloadPage: function () {
       this.getList()
     },
-    jumpToRatings(id) {
+    jumpToRatings (id) {
       this.$router.push({
         name: 'ratings_of_book',
         params: {
@@ -176,19 +176,19 @@ export default {
         }
       })
     },
-    jumpToBookInfo(book_id) {
+    jumpToBookInfo (book_id) {
       this.$router.push('/data/books/' + book_id)
     },
-    jumpToAdd() {
+    jumpToAdd () {
       this.$router.push('/data/books/add')
     },
-    openRatingDialog(book) {
+    openRatingDialog (book) {
       this.ratingDialog.book = book
       this.ratingDialog.title = 'Rating of book "' + book.title + '"'
       this.ratingDialog.visible = true
       this.ratingDialog.ratingLoading = true
       this.ratingDialog.rating = 0
-      this.ajax.get('/books/' + book.id + '/rating').then(response=> {
+      this.ajax.get('/books/' + book.id + '/rating').then(response => {
         if (response.code === '0') {
           this.ratingDialog.rating = response.info.rating
           this.ratingDialog.ratingLoading = false
@@ -198,10 +198,10 @@ export default {
         }
       })
     },
-    closeRatingDialog() {
+    closeRatingDialog () {
       this.ratingDialog.visible = false
     },
-    async rate() {
+    async rate () {
       this.ratingDialog.ratingSubmitting = true
       await this.ajax.put('/books/' + this.ratingDialog.book.id + '/rating', {
         rating: this.ratingDialog.rating

@@ -8,7 +8,7 @@ import TextureArray from '../common/TextureArray'
 import Texture from '../common/Texture'
 
 export default class ObjMesh extends Thing {
-  constructor(gl, url) {
+  constructor (gl, url) {
     super(gl)
     this.url = url
     this.fileLoaded = false
@@ -16,10 +16,10 @@ export default class ObjMesh extends Thing {
     this.DIFFUSE_MAP_TEXTURE_BOUND = 1
   }
 
-  onCreateVbo() {
+  onCreateVbo () {
   }
 
-  async onCreateVao(technique, requirement) {
+  async onCreateVao (technique, requirement) {
     this.requirement = requirement
     this.scanner = new ObjectMeshScanner(this.url)
     this.technique = technique
@@ -27,7 +27,7 @@ export default class ObjMesh extends Thing {
     this.fileLoaded = true
   }
 
-  async createVaoAndVbo(technique, requirement) {
+  async createVaoAndVbo (technique, requirement) {
     var scanner = this.scanner
     this.components = await scanner.getComponents()
     this.count = await scanner.getCount()
@@ -110,7 +110,7 @@ export default class ObjMesh extends Thing {
     }
   }
 
-  onDraw() {
+  onDraw () {
     if (!this.fileLoaded) {
       return
     }

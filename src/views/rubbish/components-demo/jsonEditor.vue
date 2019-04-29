@@ -15,7 +15,7 @@ const jsonData = '[{"items":[{"market_type":"forexdata","symbol":"XAUUSD"},{"mar
 export default {
   name: 'JsonEditorDemo',
   components: { JsonEditor },
-  data() {
+  data () {
     return {
       value: JSON.parse(jsonData)
     }
@@ -29,4 +29,3 @@ export default {
   height: 100%;
 }
 </style>
-

@@ -2,16 +2,16 @@ import { mat4, quat, vec3 } from 'gl-matrix'
 import MatrixMath from '../tools/MatrixMath'
 
 export default class Transform {
-  constructor() {
+  constructor () {
     this.matrix = mat4.create()
     this.eventListeners = []
   }
 
-  addEventListener(listener) {
+  addEventListener (listener) {
     this.eventListeners.push(listener)
   }
 
-  notifyEventListeners() {
+  notifyEventListeners () {
     for (var i in this.eventListeners) {
       if (typeof this.eventListeners[i].onTransformChanged !== 'undefined') {
         this.eventListeners[i].onTransformChanged(this)
@@ -19,32 +19,32 @@ export default class Transform {
     }
   }
 
-  getPosition() {
+  getPosition () {
     return mat4.getTranslation(vec3.create(), this.matrix)
   }
 
-  getTranslationMatrix() {
+  getTranslationMatrix () {
     return mat4.fromTranslation(mat4.create(), this.getPosition())
   }
 
-  getRotation() {
+  getRotation () {
     var ans = mat4.getRotation(quat.create(), this.matrix)
     return ans
   }
 
-  getRotationMatrix() {
+  getRotationMatrix () {
     return mat4.fromQuat(mat4.create(), this.getRotation())
   }
 
-  getScaling() {
+  getScaling () {
     return mat4.getScaling(vec3.create(), this.matrix)
   }
 
-  getScalingMatrix() {
+  getScalingMatrix () {
     return mat4.fromScaling(mat4.create(), this.getScaling())
   }
 
-  setPosition(position) {
+  setPosition (position) {
     var t = mat4.fromTranslation(mat4.create(), position)
     var m = mat4.mul(mat4.create(), t, this.getRotationMatrix())
     m = mat4.mul(m, m, this.getScalingMatrix())
@@ -53,7 +53,7 @@ export default class Transform {
     return this
   }
 
-  setRotation(rotation) {
+  setRotation (rotation) {
     var r = mat4.fromQuat(mat4.create(), rotation)
     var m = mat4.mul(mat4.create(), this.getTranslationMatrix(), r)
     m = mat4.mul(m, m, this.getScalingMatrix())
@@ -62,7 +62,7 @@ export default class Transform {
     return this
   }
 
-  setScaling(scaling) {
+  setScaling (scaling) {
     var s = mat4.fromScaling(mat4.create(), scaling)
     var m = mat4.mul(mat4.create(), this.getTranslationMatrix(), this.getRotationMatrix())
     m = mat4.mul(m, m, s)
@@ -71,30 +71,30 @@ export default class Transform {
     return this
   }
 
-  setMatrix(matrix) {
+  setMatrix (matrix) {
     this.matrix = matrix
     this.notifyEventListeners()
     return this
   }
 
-  updateFromTransform(transform) {
+  updateFromTransform (transform) {
     this.eventListeners = transform.eventListeners
     transform.eventListeners = null
     this.setMatrix(transform.getMatrix())
     return this
   }
 
-  getMatrix() {
+  getMatrix () {
     return this.matrix
   }
 
-  getNormalMatrix() {
+  getNormalMatrix () {
     var m = mat4.invert(mat4.create(), this.matrix)
     mat4.transpose(m, m)
     return m
   }
 
-  clone() {
+  clone () {
     var a = new Transform()
     a.matrix = this.matrix
     return a

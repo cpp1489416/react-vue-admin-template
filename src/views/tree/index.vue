@@ -6,14 +6,14 @@
       </el-aside>
       <el-main>
         <el-button @click="repaint">repaint</el-button>
-        <el-switch
+        <v-switch
           v-model="rotating"
           active-text="rotating"
           inactive-text="static"/>
-        <el-input v-model="walkDistance"/>
-        <el-button @click="walk">walk</el-button>
-        <el-input v-model="flyDistance"/>
-        <el-button @click="fly">fly</el-button>
+        <v-text-field v-model="walkDistance"/>
+        <v-btn @click="walk">walk</v-btn>
+        <v-text-field v-model="flyDistance"/>
+        <v-btn @click="fly">fly</v-btn>
         <el-input v-model="strafeDistance"/>
         <el-button @click="strafe">strafe</el-button>
         <el-input v-model="pitchDistance"/>
@@ -36,20 +36,20 @@
 <script>
 import Camera from '../../utils/gl/common/Camera'
 import Cube from '../../utils/gl/things/Cube'
-import { vec3, mat4 } from 'gl-matrix'
+import { vec3, mat4, quat } from 'gl-matrix'
 import Anchor from '../../utils/gl/things/Anchor'
 import ObjMesh from '../../utils/gl/things/ObjMesh'
 import Quad from '../../utils/gl/things/Quad'
 import Scene from '../../utils/gl/Scene'
 import PlaneReflectedCamera from '../../utils/gl/cameras/PlaneReflectedCamera'
 import BasicCamera from '../../utils/gl/cameras/BasicCamera'
-import { quat } from 'gl-matrix'
+
 import ObjMeshMirror from '../../utils/gl/things/ObjMeshMirror'
 import scene1 from './scene1'
 import SceneBuilder from '../../utils/gl/SceneBuilder'
 
 export default {
-  data() {
+  data () {
     return {
       canvas: null,
       sceneBuilder: null,
@@ -74,7 +74,7 @@ export default {
       rotateW: 0
     }
   },
-  mounted() {
+  mounted () {
     var canvas = this.$refs.tree
     this.canvas = canvas
     this.initScene()
@@ -85,11 +85,11 @@ export default {
   },
 
   methods: {
-    repaint() {
+    repaint () {
       window.location.reload()
     },
 
-    initScene() {
+    initScene () {
       this.gl = this.canvas.getContext('webgl2')
       this.sceneBuilder = new SceneBuilder()
         .setGl(this.gl)
@@ -107,32 +107,32 @@ export default {
       setInterval(this.timePass, 100)
     },
 
-    paintGl() {
+    paintGl () {
       this.scene.draw()
     },
 
-    timePass() {
+    timePass () {
       if (this.mesh !== null && this.rotating) {
         this.now += 5
         this.mesh.transform.setRotation(quat.fromEuler(quat.create(), 0, this.now, 0))
       }
       this.paintGl()
     },
-    onCanvasMouseDown(e) {
+    onCanvasMouseDown (e) {
       if (e.button === 0) {
         this.leftButtonPressed = true
       }
     },
-    onCanvasMouseMove(e) {
+    onCanvasMouseMove (e) {
       if (this.leftButtonPressed) {
         this.camera.yall(-e.movementX / 400.0)
         this.camera.pitch(-e.movementY / 400.0)
       }
     },
-    onCanvasMouseUp(e) {
+    onCanvasMouseUp (e) {
       this.leftButtonPressed = false
     },
-    onCanvasKeyDown(e) {
+    onCanvasKeyDown (e) {
       switch (e.key) {
         case 'w':
           this.camera.walk(-1)
@@ -150,25 +150,25 @@ export default {
           break
       }
     },
-    walk() {
+    walk () {
       this.camera.walk(Number(this.walkDistance))
     },
-    fly() {
+    fly () {
       this.camera.fly(Number(this.flyDistance))
     },
-    strafe() {
+    strafe () {
       this.camera.strafe(Number(this.strafeDistance))
     },
-    pitch() {
+    pitch () {
       this.camera.pitch(Number(this.pitchDistance))
     },
-    yall() {
+    yall () {
       this.camera.yall(Number(this.yallDistance))
     },
-    roll() {
+    roll () {
       this.camera.roll(Number(this.rollDistance))
     },
-    reflect() {
+    reflect () {
       if (this.reflectedCamera.plane == null) {
         // alert(this.mirror.getMirrorCamera().getPlane())
         this.reflectedCamera.changePlane(this.mirror.getMirrorCamera().getPlane())
@@ -176,11 +176,10 @@ export default {
         this.reflectedCamera.changePlane(null)
       }
     },
-    rotate() {
+    rotate () {
       // this.mesh.transform.setRotation(quat.setAxisAngle(quat.create(), [this.rotateX, this.rotateY, this.rotateZ], this.rotateW))
       this.mesh.transform.setRotation(quat.fromEuler(quat.create(), this.rotateX, this.rotateY, this.rotateZ))
     }
   }
 }
 </script>
-
